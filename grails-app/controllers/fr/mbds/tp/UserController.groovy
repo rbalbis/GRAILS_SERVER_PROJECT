@@ -25,6 +25,8 @@ class UserController {
         respond new User(params)
     }
 
+    @Secured(['ROLE_ADMIN', "ROLE_USER"])
+
     def save(User user) {
         if (user == null) {
             notFound()
@@ -37,6 +39,9 @@ class UserController {
             respond user.errors, view:'create'
             return
         }
+
+        def f = request.getFile('image')
+        f.transferTo(new File('/Applications/MAMP/htdocs/image'+user.id+'.png'))
 
         request.withFormat {
             form multipartForm {

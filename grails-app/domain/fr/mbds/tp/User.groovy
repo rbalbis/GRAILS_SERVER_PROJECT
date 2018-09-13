@@ -13,7 +13,7 @@ class User implements Serializable {
 
     String username
     String password
-    File image
+    byte[] image
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -26,7 +26,7 @@ class User implements Serializable {
     static constraints = {
         password nullable: false, blank: false, password: true
         username nullable: false, blank: false, unique: true
-        image nullable: true, blank: true, unique: true
+        image nullable: true, blank: true, unique: true, size: 1..99999999
     }
 
     static mapping = {
