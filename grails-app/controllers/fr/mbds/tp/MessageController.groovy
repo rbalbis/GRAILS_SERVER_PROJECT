@@ -7,17 +7,17 @@ import static org.springframework.http.HttpStatus.*
 @Secured(['ROLE_ADMIN', "ROLE_USER"])
 class MessageController {
 
-    MessageService messageService
+    MessageUsersService messageUsersService = getMessageUsersService()
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond messageService.list(params), model:[messageCount: messageService.count()]
+        respond messageUsersService.list(params), model:[messageCount: messageUsersService.count()]
     }
 
     def show(Long id) {
-        respond messageService.get(id)
+        respond messageUsersService.get(id)
     }
 
     def create() {
@@ -31,7 +31,7 @@ class MessageController {
         }
 
         try {
-            messageService.save(message)
+            messageUsersService.save(message)
         } catch (ValidationException e) {
             respond message.errors, view:'create'
             return
@@ -47,7 +47,7 @@ class MessageController {
     }
 
     def edit(Long id) {
-        respond messageService.get(id)
+        respond messageUsersService.get(id)
     }
 
     def update(Message message) {
@@ -57,7 +57,7 @@ class MessageController {
         }
 
         try {
-            messageService.save(message)
+            messageUsersService.save(message)
         } catch (ValidationException e) {
             respond message.errors, view:'edit'
             return
@@ -78,7 +78,7 @@ class MessageController {
             return
         }
 
-        messageService.delete(id)
+        messageUsersService.delete(id)
 
         request.withFormat {
             form multipartForm {

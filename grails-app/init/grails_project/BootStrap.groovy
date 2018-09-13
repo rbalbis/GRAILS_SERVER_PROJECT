@@ -28,6 +28,7 @@ class BootStrap {
 
         new Message(author: playerUser1, target: playerUser2, content: "blablabla").save(flush:true, failOnError:true)
         new Message(author: playerUser2, target: playerUser1, content: "ninini").save(flush:true, failOnError:true)
+        new Message(author: adminUser, target: playerUser2, content: "Message de l'administrateur").save(flush:true, failOnError:true)
 
 
     }
