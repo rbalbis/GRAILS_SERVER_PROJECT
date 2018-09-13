@@ -47,10 +47,13 @@ class UserController {
         }
     }
 
+    @Secured(['ROLE_ADMIN', "ROLE_USER"])
+
     def edit(Long id) {
         respond userService.get(id)
     }
 
+    @Secured(['ROLE_ADMIN', "ROLE_USER"])
     def update(User user) {
         if (user == null) {
             notFound()

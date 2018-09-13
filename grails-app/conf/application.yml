@@ -28,8 +28,16 @@ endpoints:
 
 ---
 grails:
+    plugin:
+        fields:
+            wrapper: field
+            displayWrapper: display
+            widget: input
+            displayWidget: displayWidget
     project:
         groupId: 'fr.mbds.grails'
+        filePath: "var/wwW/tpgrails"
+        fileUrl: "http://localhost:8888/"
     mime:
         disable:
             accept:

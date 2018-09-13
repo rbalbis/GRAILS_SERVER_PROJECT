@@ -13,7 +13,7 @@ class User implements Serializable {
 
     String username
     String password
-    String image
+    File image
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked

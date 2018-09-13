@@ -27,7 +27,14 @@
             </g:hasErrors>
             <g:form resource="${this.user}" method="POST">
                 <fieldset class="form">
-                    <f:all bean="user"/>
+                        <label>Username: </label>
+                        <g:textField name="username"/><br/>
+                        <label>Password: </label>
+                        <g:textField name="password"/><br/>
+                        <label>Image: </label>
+                    <g:uploadForm >
+                        <input type="file" name="image" />
+                    </g:uploadForm>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
