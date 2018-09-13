@@ -25,21 +25,19 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.user}" method="POST">
+            <g:uploadForm resource="${this.user}" method="POST">
                 <fieldset class="form">
                         <label>Username: </label>
                         <g:textField name="username"/><br/>
                         <label>Password: </label>
                         <g:passwordField name="password"/><br/>
                         <label>Image: </label>
-                    <g:uploadForm >
                         <input type="file" name="image" />
-                    </g:uploadForm>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </fieldset>
-            </g:form>
+            </g:uploadForm>
         </div>
     </body>
 </html>
