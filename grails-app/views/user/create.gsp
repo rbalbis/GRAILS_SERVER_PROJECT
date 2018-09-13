@@ -30,7 +30,7 @@
                         <label>Username: </label>
                         <g:textField name="username"/><br/>
                         <label>Password: </label>
-                        <g:textField name="password"/><br/>
+                        <g:passwordField name="password"/><br/>
                         <label>Image: </label>
                         <input type="file" name="image" />
                 </fieldset>
