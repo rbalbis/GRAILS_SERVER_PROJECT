@@ -3,7 +3,7 @@ package fr.mbds.tp
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class MatchSpec extends Specification implements DomainUnitTest<Match> {
+class ResultatSpec extends Specification implements DomainUnitTest<Resultat> {
 
     def setup() {
     }

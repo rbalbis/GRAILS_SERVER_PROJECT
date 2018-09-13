@@ -1,6 +1,6 @@
 package fr.mbds.tp
 
-class Match {
+class Resultat {
 
     User winner
     User looser

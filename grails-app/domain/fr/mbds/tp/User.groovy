@@ -13,6 +13,7 @@ class User implements Serializable {
 
     String username
     String password
+    String image
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -25,14 +26,15 @@ class User implements Serializable {
     static constraints = {
         password nullable: false, blank: false, password: true
         username nullable: false, blank: false, unique: true
+        image nullable: true, blank: true, unique: true
     }
 
     static mapping = {
 	    password column: '`password`'
     }
 
-    static hasMany = [matchWon:Match,
-                      matchLost:Match,
+    static hasMany = [matchWon:Resultat,
+                      matchLost:Resultat,
                       messageSent: Message,
                       messageReceived:Message]
 

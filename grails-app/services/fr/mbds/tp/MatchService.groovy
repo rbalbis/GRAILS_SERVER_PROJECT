@@ -2,17 +2,17 @@ package fr.mbds.tp
 
 import grails.gorm.services.Service
 
-@Service(Match)
+@Service(Resultat)
 interface MatchService {
 
-    Match get(Serializable id)
+    Resultat get(Serializable id)
 
-    List<Match> list(Map args)
+    List<Resultat> list(Map args)
 
     Long count()
 
     void delete(Serializable id)
 
-    Match save(Match match)
+    Resultat save(Resultat match)
 
 }

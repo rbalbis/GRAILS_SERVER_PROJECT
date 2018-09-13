@@ -25,7 +25,7 @@ class BootStrap {
 
 
 
-        new Match(winner: playerUser1,looser: playerUser2, winnerScore : 10, looserScore: 1).save(flush:true, failOnError:true)
+        new Resultat(winner: playerUser1,looser: playerUser2, winnerScore : 10, looserScore: 1).save(flush:true, failOnError:true)
 
         new Message(author: playerUser1, target: playerUser2, content: "blablabla").save(flush:true, failOnError:true)
         new Message(author: playerUser2, target: playerUser1, content: "ninini").save(flush:true, failOnError:true)
