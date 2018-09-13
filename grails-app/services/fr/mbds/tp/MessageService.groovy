@@ -9,8 +9,6 @@ interface MessageService {
 
     List<Message> list(Map args)
 
-    Long count()
-
     void delete(Serializable id)
 
     Message save(Message message)

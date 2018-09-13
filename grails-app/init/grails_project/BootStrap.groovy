@@ -18,7 +18,6 @@ class BootStrap {
 
 
         UserRole.create(adminUser,adminRole,true)
-        UserRole.create(adminUser,gamingRole,true)
         UserRole.create(playerUser1,gamingRole,true)
         UserRole.create(playerUser2,gamingRole,true)
 

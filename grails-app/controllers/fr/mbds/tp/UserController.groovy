@@ -1,8 +1,10 @@
 package fr.mbds.tp
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured(['ROLE_ADMIN'])
 class UserController {
 
     UserService userService
@@ -18,6 +20,7 @@ class UserController {
         respond userService.get(id)
     }
 
+    @Secured(['ROLE_ADMIN', "ROLE_USER"])
     def create() {
         respond new User(params)
     }
