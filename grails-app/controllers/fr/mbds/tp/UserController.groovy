@@ -33,20 +33,17 @@ class UserController {
     @Secured(['ROLE_ADMIN', "ROLE_USER"])
 
     def save(User user) {
-
-
         if (user == null) {
             notFound()
             return
         }
 
         try {
-            imageUploadService.save(user, request)
+            user = imageUploadService.save(user, request)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
         }
-
 
         request.withFormat {
             form multipartForm {

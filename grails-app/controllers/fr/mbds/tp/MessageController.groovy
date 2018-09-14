@@ -11,6 +11,8 @@ class MessageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    List userList = ["test", "ggyi"]
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond messageUsersService.list(params), model:[messageCount: messageUsersService.count()]
@@ -21,6 +23,7 @@ class MessageController {
     }
 
     def create() {
+        //userList = messageUsersService.userList(params)
         respond new Message(params)
     }
 

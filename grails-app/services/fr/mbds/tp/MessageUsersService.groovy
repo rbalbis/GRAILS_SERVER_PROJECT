@@ -44,8 +44,8 @@ class MessageUsersService {
     }
 
 
-    List<User> userList(Map args){
-        List<User> res = []
+    def userList(Map args){
+        List<String> res = []
         def users =  userService.list(args)
         for (user in users){
             res.push(user.username)

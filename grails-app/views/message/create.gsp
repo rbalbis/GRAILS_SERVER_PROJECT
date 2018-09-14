@@ -27,7 +27,12 @@
             </g:hasErrors>
             <g:form resource="${this.message}" method="POST">
                 <fieldset class="form">
-                    <f:all bean="message"/>
+                    <label>Message: </label>
+                    <g:select name="target" from="${["test", "ggyi"]}" value="${age}"/><br/>
+
+
+                    <label>Message: </label>
+                    <g:textArea name="content"/><br/>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
