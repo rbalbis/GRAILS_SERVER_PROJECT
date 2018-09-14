@@ -9,6 +9,8 @@ class UserController {
 
     UserService userService
 
+    ImageUploadService imageUploadService = getImageUploadService()
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -22,26 +24,29 @@ class UserController {
 
     @Secured(['ROLE_ADMIN', "ROLE_USER"])
     def create() {
+
         respond new User(params)
+
+
     }
 
     @Secured(['ROLE_ADMIN', "ROLE_USER"])
 
     def save(User user) {
+
+
         if (user == null) {
             notFound()
             return
         }
 
         try {
-            userService.save(user)
+            imageUploadService.save(user, request)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
         }
 
-        def f = request.getFile('image')
-        f.transferTo(new File('/Applications/MAMP/htdocs/image'+user.id+'.png'))
 
         request.withFormat {
             form multipartForm {
