@@ -3,7 +3,7 @@ package fr.mbds.tp
 import grails.gorm.services.Service
 
 @Service(Resultat)
-interface MatchService {
+interface ResultatService {
 
     Resultat get(Serializable id)
 

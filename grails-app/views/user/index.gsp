@@ -14,15 +14,33 @@
             </ul>
         </div>
         <div id="list-user" class="content scaffold-list" role="main">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${userList}" />
 
-            <div class="pagination">
-                <g:paginate total="${userCount ?: 0}" />
+
+
+            <div class="wrapper">
+
+                <header><div>Liste des utilisateurs</div></header>
+                <div class="container">
+                    <g:each var ="user" in="${userList}">
+                        <div class="box">
+                            <img src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face" width=100% height=100%>
+                            <p>${user.username}</p>
+                            <p id="details">Matchs gagnés: ${user.matchWon.size()}</p>
+                        </div>
+                    </g:each>
+                </div>
             </div>
+
         </div>
+
+
+<asset:javascript src="indexUser.js"/>
+<asset:stylesheet src="indexUser.css"/>
+
     </body>
-</html>
+
+
+    </html>

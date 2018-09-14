@@ -9,18 +9,18 @@ import org.hibernate.SessionFactory
 @Rollback
 class ResultatServiceSpec extends Specification {
 
-    MatchService matchService
+    ResultatService matchService
     SessionFactory sessionFactory
 
     private Long setupData() {
         // TODO: Populate valid domain instances and return a valid ID
         //new Resultat(...).save(flush: true, failOnError: true)
         //new Resultat(...).save(flush: true, failOnError: true)
-        //Resultat match = new Resultat(...).save(flush: true, failOnError: true)
+        //Resultat resultat = new Resultat(...).save(flush: true, failOnError: true)
         //new Resultat(...).save(flush: true, failOnError: true)
         //new Resultat(...).save(flush: true, failOnError: true)
         assert false, "TODO: Provide a setupData() implementation for this generated test suite"
-        //match.id
+        //resultat.id
     }
 
     void "test get"() {

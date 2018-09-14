@@ -26,6 +26,8 @@ endpoints:
     jmx:
         enabled: true
 
+filePath: '/Applications/MAMP/htdocs/'
+fileUrl: 'http://127.0.0.1:8888/'
 ---
 grails:
     plugin:

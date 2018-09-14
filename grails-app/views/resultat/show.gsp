@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'match.label', default: 'Resultat')}" />
+        <g:set var="entityName" value="${message(code: 'resultat.label', default: 'Resultat')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -19,7 +19,7 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="match" />
+            <f:display bean="resultat" />
             <g:form resource="${this.match}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.match}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
