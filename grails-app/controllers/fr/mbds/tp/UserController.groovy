@@ -1,5 +1,6 @@
 package fr.mbds.tp
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
@@ -22,7 +23,6 @@ class UserController {
         respond userService.get(id)
     }
 
-    @Secured(['ROLE_ADMIN', "ROLE_USER"])
     def create() {
 
         respond new User(params)
@@ -30,14 +30,11 @@ class UserController {
 
     }
 
-    @Secured(['ROLE_ADMIN', "ROLE_USER"])
-
     def save(User user) {
         if (user == null) {
             notFound()
             return
         }
-
         try {
             user = imageUploadService.save(user, request)
         } catch (ValidationException e) {
@@ -54,13 +51,14 @@ class UserController {
         }
     }
 
-    @Secured(['ROLE_ADMIN', "ROLE_USER"])
+    def saveImage() {
+        imageUploadService.uploadImage(request)
+    }
 
     def edit(Long id) {
         respond userService.get(id)
     }
 
-    @Secured(['ROLE_ADMIN', "ROLE_USER"])
     def update(User user) {
         if (user == null) {
             notFound()

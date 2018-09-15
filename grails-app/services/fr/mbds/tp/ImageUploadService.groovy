@@ -14,23 +14,19 @@ class ImageUploadService {
 
     def uploadImage(f) {
 
-        String imageName = UUID.randomUUID().toString() + "."+ f.contentType.split("/")[-1]
-
+//        String imageName = UUID.randomUUID().toString() + "."+ f.getFile('image').contentType.split("/")[-1]
+        String imageName = f.getParameter("imageName")
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
-
         String pathToFile= FILE_PATH + imageName
-
-        f.transferTo(new File(pathToFile))
-
-
+        f.getFile('image').transferTo(new File(pathToFile))
         return imageName
+
     }
 
     def save(User user, HttpServletRequest request){
 
-        def pathToFile = uploadImage(request.getFile('image'))
-
-        def newUser = new User(username:user.username, password: user.password, image: pathToFile).save(flush:true, failOnError:true)
+        String imageName = user.image
+        def newUser = new User(username:user.username, password: user.password, image: imageName).save(flush:true, failOnError:true)
         return newUser
 
     }
