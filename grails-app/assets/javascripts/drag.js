@@ -1,3 +1,4 @@
+// String random
 function guid() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -8,7 +9,8 @@ function guid() {
 }
 
 var imageName = guid();
-console.log(imageName)
+var oldImageName = ""; // pour supprimer l'ancien image en cas de plusieurs drag
+console.log(imageName);
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -83,10 +85,12 @@ function afterLoad(files) {
 // Envoyé l'image au serveur au moment du drop
 $(".file").change(function() {
     var file = document.getElementById("file").files[0];
-    imageName += file.name;
+    oldImageName = imageName;
+    imageName = guid() + file.name;
     document.getElementById("imageName").value = imageName;
     var form = new FormData();
     form.append("image", file);
     form.append("imageName", imageName);
+    form.append("oldImageName", oldImageName);
     $.ajax("http://localhost:8081/mbdstp/user/saveImage", {type: "POST", contentType: false, cache: false, processData: false, data: form});
 });

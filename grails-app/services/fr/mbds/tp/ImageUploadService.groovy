@@ -19,6 +19,11 @@ class ImageUploadService {
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
         String pathToFile= FILE_PATH + imageName
         f.getFile('image').transferTo(new File(pathToFile))
+
+        String oldImageName = f.getParameter("oldImageName")
+        String pathToOldFile= FILE_PATH + oldImageName
+        File file = new File(pathToOldFile)
+        file.delete()
         return imageName
 
     }
