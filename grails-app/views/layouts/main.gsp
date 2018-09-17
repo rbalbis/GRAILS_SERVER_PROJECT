@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -14,37 +16,71 @@
     <g:layoutHead/>
 </head>
 <body>
+<header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <a class="mdl-navigation__link" href="/mbdstp"><span class="mdl-layout-title">TP Grails</span></a>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+<sec:ifLoggedIn>
+    <span style="margin-right: 30px">
+    Bonjour <sec:loggedInUserInfo field='username'/>
+    </span>
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/#">
-		    <asset:image src="grails.svg" alt="Grails Logo"/>
-                </a>
-            </div>
-            <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <g:pageProperty name="page.nav" />
-                </ul>
-            </div>
-        </div>
+</sec:ifLoggedIn>
+
+        <sec:ifNotLoggedIn>
+            <g:link controller='login' action='auth' style="color: white;">Connection</g:link>
+        </sec:ifNotLoggedIn>
+        <sec:ifLoggedIn>
+            <g:link controller='logout' style="color: white;">Deconnexion</g:link>
+        </sec:ifLoggedIn>
+
+        </nav>
     </div>
+</header>
 
-    <g:layoutBody/>
+<g:layoutBody/>
 
-    <div class="footer" role="contentinfo"></div>
 
-    <div id="spinner" class="spinner" style="display:none;">
-        <g:message code="spinner.alt" default="Loading&hellip;"/>
-    </div>
+<div id="spinner" class="spinner" style="display:none;">
+    <g:message code="spinner.alt" default="Loading&hellip;"/>
+</div>
 
-    <asset:javascript src="application.js"/>
+<asset:javascript src="application.js"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
+<style>
+.demo-card-wide:hover{
+    opacity: 0.4;
+    color: gray;
+}
+
+.demo-card-wide{
+    color: gray;
+}
+.demo-card-wide.mdl-card {
+    margin: 10px;
+    width: 350px;
+}
+.demo-card-wide > .mdl-card__titleMessage {
+    color: #fff;
+    height: 176px;
+    background: url('assets/message.jpg') center / cover;
+}
+
+.demo-card-wide > .mdl-card__titleUser {
+    color: #fff;
+    height: 176px;
+    background: url('assets/user.svg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+    color: #fff;
+}
+</style>
 </body>
 </html>

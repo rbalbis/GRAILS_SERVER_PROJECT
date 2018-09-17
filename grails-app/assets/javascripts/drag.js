@@ -86,7 +86,8 @@ function afterLoad(files) {
 $(".file").change(function() {
     var file = document.getElementById("file").files[0];
     oldImageName = imageName;
-    imageName = guid() + file.name;
+    imageName = guid() + "." + file.type.split("/")[1]; // obtenir le vrai type de l'image pour plus de sécurité
+    console.log(imageName);
     document.getElementById("imageName").value = imageName;
     var form = new FormData();
     form.append("image", file);

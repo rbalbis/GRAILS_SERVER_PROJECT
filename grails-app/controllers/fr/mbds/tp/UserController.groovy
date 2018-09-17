@@ -12,7 +12,9 @@ class UserController {
 
     ImageUploadService imageUploadService = getImageUploadService()
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    def springSecurityService
+
+    static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -24,10 +26,7 @@ class UserController {
     }
 
     def create() {
-
         respond new User(params)
-
-
     }
 
     def save(User user) {
@@ -53,6 +52,13 @@ class UserController {
 
     def saveImage() {
         imageUploadService.uploadImage(request)
+    }
+
+    @Secured(['ROLE_USER'])
+    def getCurrentUser(){
+        def user = imageUploadService.getCurrentUser()
+        def jsonUser = user.toString()
+        render user as JSON
     }
 
     def edit(Long id) {
