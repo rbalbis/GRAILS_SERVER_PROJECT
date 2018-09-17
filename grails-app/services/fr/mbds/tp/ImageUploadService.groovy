@@ -1,7 +1,7 @@
 package fr.mbds.tp
 
 import grails.gorm.transactions.Transactional
-
+import grails.web.servlet.mvc.GrailsParameterMap
 
 import javax.servlet.http.HttpServletRequest
 
@@ -28,10 +28,17 @@ class ImageUploadService {
 
     }
 
-    def save(User user, HttpServletRequest request){
+    def save(User user, HttpServletRequest request, GrailsParameterMap params){
 
         String imageName = user.image
+        System.out.print(params.get('role'))
+
+        def roleQuery = Role.where { authority == params.get('role') }
+        Role role = roleQuery.find()
+
         def newUser = new User(username:user.username, password: user.password, image: imageName).save(flush:true, failOnError:true)
+
+        UserRole.create(newUser, role,true)
         return newUser
 
     }

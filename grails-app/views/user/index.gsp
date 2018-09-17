@@ -25,15 +25,18 @@
                 <header><div>Liste des utilisateurs</div></header>
                 <div class="container">
                     <g:each var ="user" in="${userList}">
-                        <div class="box">
-                            <img src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face" width=100% height=100%>
-                            <p>${user.username}</p>
-                            <p id="details">Matchs gagnés: ${user.matchWon.size()}</p>
-                        </div>
+
+                        <a href="http://localhost:8081/mbdstp/user/edit/${user.id}">
+                                <div class="box">
+
+                               <img src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face">
+                                <p class="username">${user.username}</p>
+                                <p id="details">Matchs gagnés: ${user.matchWon.size()}</p>
+                            </div>
+                        </a>
                     </g:each>
                 </div>
             </div>
-
         </div>
 
 
