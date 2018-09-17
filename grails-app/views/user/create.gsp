@@ -1,3 +1,4 @@
+<%@ page import="fr.mbds.tp.Role" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,36 +28,34 @@
             </g:hasErrors>
             <g:uploadForm resource="${this.user}" method="POST">
                 <fieldset class="form">
-                        <label>Username: </label>
-                        <g:textField name="username"/><br/>
-                        <label>Password: </label>
-                        <g:passwordField name="password"/><br/>
-
-                        <g:textField name="image" id="imageName" style="display: none;"/><br/>
-                        <label>Image: </label>
-                    <div id="contentImage" style="text-align: center">
-                        <div class="contentDrop" ondragover="allowDrop(event)" ondrop="drop(event)" style="display:inline-block;">
-                             <div class="circle">
-                                 <svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M0 0h24v24H0z" fill="none"/>
-                                     <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
-                                 </svg>
-                             </div>
-                             <drop-zone id="dropZone">
-                                 <section slot="label">
-                                     <div class="button-wrapper">
-                                         <label id="nameImg" class="label" for="fileElem">Faites glisser l'image ici OU</label>
-                                         <button type="button" id="button" class="btn" onclick="load()">Choisissez votre image</button>
-                                         <input type="file" name="image2" id="file" class="file" multiple accept="image/*" onchange="afterLoad(this.files)">
-                                     </div>
-                                 </section>
-                             </drop-zone>
-                     </div>
+                    <label>Username: </label>
+                    <g:textField name="username"/><br/>
+                    <label>Password: </label>
+                    <g:passwordField name="password"/><br/>
+                    <label>Rôle de utilisateur: </label>
+                    <g:select name="role" from="${fr.mbds.tp.Role.findAll().authority}" value="${authority}"/>
+                    <g:textField name="image" id="imageName" style="display: none;"/>
+                    <br/>
+                    <label>Image: </label>
+                    <div class="contentDrop" ondragover="allowDrop(event)" ondrop="drop(event)" style="display:inline-block;">
+                         <div class="circle">
+                             <svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M0 0h24v24H0z" fill="none"/>
+                                 <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                             </svg>
+                         </div>
+                         <drop-zone id="dropZone">
+                             <section slot="label">
+                                 <div class="button-wrapper">
+                                     <label id="nameImg" class="label" for="fileElem">Faites glisser l'image ici OU</label>
+                                     <button type="button" id="button" class="btn" onclick="load()">Choisissez votre image</button>
+                                     <input type="file" name="image2" id="file" class="file" multiple accept="image/*" onchange="afterLoad(this.files)">
+                                 </div>
+                             </section>
+                         </drop-zone>
+                    </div>
                     <img id="img" ondrop="drop(event)" ondragover="allowDrop(event)"/>
-
-        </div>
                 </fieldset>
-
                 <div id="list"></div>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

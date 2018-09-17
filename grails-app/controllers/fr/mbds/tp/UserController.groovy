@@ -35,7 +35,7 @@ class UserController {
             return
         }
         try {
-            user = imageUploadService.save(user, request)
+            user = imageUploadService.save(user, request, params)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
