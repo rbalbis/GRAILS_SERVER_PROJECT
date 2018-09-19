@@ -1,3 +1,4 @@
+<%@ page import="grails.plugin.springsecurity.SpringSecurityService" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,19 +23,51 @@
 
             <div class="wrapper">
 
-                <header><div>Liste des utilisateurs</div></header>
                 <div class="container">
-                    <g:each var ="user" in="${userList}">
+                    <h2 class="title">Liste des utilisateurs</h2>
+                    <div class="profil">
+                        <g:each var ="user" in="${userList}">
+                            <script>console.log(${user})</script>
 
-                        <a href="http://localhost:8081/mbdstp/user/edit/${user.id}">
-                                <div class="box">
 
-                               <img src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face">
-                                <p class="username">${user.username}</p>
-                                <p id="details">Matchs gagnés: ${user.matchWon.size()}</p>
-                            </div>
-                        </a>
+                                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                                    <div class="main">
+                                    <img class="profil_pic" src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face">
+
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">${user.username}</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text">
+                                        <div class="win">Parties gagnés: ${user.matchWon.size()}</div>
+                                        <div class="lost">Parties perdus : ${user.matchLost.size()}</div>
+
+                                    </div>
+                                    </div>
+                                    <div class="mdl-card__actions mdl-card--border user_menu">
+                                        <a class="profil_page mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="http://localhost:8081/mbdstp/user/show/${user.id}">
+                                            <img class="logo" src="../assets/show.png" alt="show"/>
+                                        </a>
+
+                                         <a class="profil_page mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="http://localhost:8081/mbdstp/user/edit/${user.id}">
+                                           <img class="logo" src="../assets/edit.png" alt="edit"/>
+                                        </a>
+
+                                        <a class="profil_page mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="http://localhost:8081/mbdstp/user/delete/${user.id}">
+                                            <img class="logo" src="../assets/delete.png" alt="delete"/>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+                            </a>
                     </g:each>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,6 +76,11 @@
 <asset:javascript src="indexUser.js"/>
 <asset:stylesheet src="indexUser.css"/>
 
+    <style>
+    .main:hover{
+        background-color: #c9ced6!important;
+    }
+    </style>
     </body>
 
 

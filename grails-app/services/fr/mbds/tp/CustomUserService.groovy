@@ -6,7 +6,7 @@ import grails.web.servlet.mvc.GrailsParameterMap
 import javax.servlet.http.HttpServletRequest
 
 @Transactional
-class ImageUploadService {
+class CustomUserService {
 
     def springSecurityService
     def grailsApplication
@@ -14,7 +14,9 @@ class ImageUploadService {
 
     def uploadImage(f) {
 
+//        String imageName = UUID.randomUUID().toString() + "."+ f.getFile('image').contentType.split("/")[-1]
         String imageName = f.getParameter("imageName")
+
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
         String pathToFile= FILE_PATH + imageName
         f.getFile('image').transferTo(new File(pathToFile))
@@ -30,7 +32,6 @@ class ImageUploadService {
     def save(User user, HttpServletRequest request, GrailsParameterMap params){
 
         String imageName = user.image
-        System.out.print(params.get('role'))
 
         def roleQuery = Role.where { authority == params.get('role') }
         Role role = roleQuery.find()

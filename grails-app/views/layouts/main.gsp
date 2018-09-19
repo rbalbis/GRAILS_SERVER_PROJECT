@@ -64,7 +64,6 @@
     margin: 0.8em 0 0.3em 0!important;
 }
 .demo-card-wide:hover{
-    opacity: 0.4;
     color: gray;
 }
 
