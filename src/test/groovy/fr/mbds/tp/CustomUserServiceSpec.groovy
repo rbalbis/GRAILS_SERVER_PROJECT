@@ -3,7 +3,7 @@ package fr.mbds.tp
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-class ImageUploadServiceSpec extends Specification implements ServiceUnitTest<ImageUploadService>{
+class CustomUserServiceSpec extends Specification implements ServiceUnitTest<CustomUserService>{
 
     def setup() {
     }

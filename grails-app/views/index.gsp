@@ -10,7 +10,7 @@
 
 
 <div id="menu">
-    <a href="user">
+    <a href="user/index">
 <div class="demo-card-wide mdl-card mdl-shadow--2dp" onclick="user()" style="display: inline-block">
     <div class="mdl-card__titleUser">
 

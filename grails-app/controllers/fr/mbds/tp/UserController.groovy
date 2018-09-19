@@ -10,14 +10,14 @@ class UserController {
 
     UserService userService
 
-    ImageUploadService imageUploadService = getImageUploadService()
+    CustomUserService customUserService = getCustomUserService()
 
     def springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 120, 100)
         respond userService.list(params), model:[userCount: userService.count()]
     }
 
@@ -35,7 +35,7 @@ class UserController {
             return
         }
         try {
-            user = imageUploadService.save(user, request, params)
+            user = customUserService.save(user, request, params)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
@@ -51,12 +51,12 @@ class UserController {
     }
 
     def saveImage() {
-        imageUploadService.uploadImage(request)
+        customUserService.uploadImage(request)
     }
 
     @Secured(['ROLE_USER'])
     def getCurrentUser(){
-        def user = imageUploadService.getCurrentUser()
+        def user = customUserService.getCurrentUser()
         def jsonUser = user.toString()
         render user as JSON
     }

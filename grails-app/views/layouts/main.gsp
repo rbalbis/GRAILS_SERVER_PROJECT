@@ -56,7 +56,6 @@
 
 <style>
 .demo-card-wide:hover{
-    opacity: 0.4;
     color: gray;
 }
 
