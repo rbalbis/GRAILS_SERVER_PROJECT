@@ -14,8 +14,7 @@ class ImageUploadService {
 
     def uploadImage(f) {
 
-//        String imageName = UUID.randomUUID().toString() + "."+ f.getFile('image').contentType.split("/")[-1]
-        String imageName = f.getParameter("imageName") + f.getFile('image')
+        String imageName = f.getParameter("imageName")
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
         String pathToFile= FILE_PATH + imageName
         f.getFile('image').transferTo(new File(pathToFile))
