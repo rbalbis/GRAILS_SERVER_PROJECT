@@ -16,7 +16,6 @@ class CustomUserService {
 
 //        String imageName = UUID.randomUUID().toString() + "."+ f.getFile('image').contentType.split("/")[-1]
         String imageName = f.getParameter("imageName")
-
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
         String pathToFile= FILE_PATH + imageName
         f.getFile('image').transferTo(new File(pathToFile))
@@ -32,11 +31,15 @@ class CustomUserService {
     def save(User user, HttpServletRequest request, GrailsParameterMap params){
 
         String imageName = user.image
+        System.out.print(params.get('role'))
 
         def roleQuery = Role.where { authority == params.get('role') }
         Role role = roleQuery.find()
 
         def newUser = new User(username:user.username, password: user.password, image: imageName).save(flush:true, failOnError:true)
+
+
+        new User(username:user.username, password: user.password, image: imageName).
 
         UserRole.create(newUser, role,true)
         return newUser

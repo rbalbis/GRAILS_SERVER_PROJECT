@@ -63,8 +63,13 @@
                 </fieldset>
             </g:uploadForm>
         </div>
-    <asset:javascript src="drag.js"/>
+    <asset:javascript src="dragCreate.js"/>
     <asset:stylesheet src="drag.css"/>
 
+    <style>
+    .content{
+        background-color: transparent!important;
+    }
+    </style>
     </body>
 </html>

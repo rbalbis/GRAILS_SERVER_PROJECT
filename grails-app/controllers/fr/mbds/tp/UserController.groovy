@@ -72,7 +72,7 @@ class UserController {
         }
 
         try {
-            userService.save(user)
+            customUserService.save(user, request, params)
         } catch (ValidationException e) {
             respond user.errors, view:'edit'
             return

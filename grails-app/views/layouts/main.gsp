@@ -65,6 +65,11 @@
 }
 .demo-card-wide:hover{
     color: gray;
+    opacity: 0.4;
+}
+
+.demo-card-wide{
+    background-color: white;
 }
 
 .demo-card-wide{
@@ -72,12 +77,12 @@
 }
 .demo-card-wide.mdl-card {
     margin: 10px;
-    width: 350px;
+    width: 380px;
 }
 .demo-card-wide.mdl-card-home {
     padding: 10px;
     margin: 10px;
-    width: 300px;
+    width: 340px;
 }
 .demo-card-wide > .mdl-card__titleMessage {
     color: #fff;

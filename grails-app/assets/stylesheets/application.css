@@ -14,3 +14,8 @@
 *= require_self
 */
 
+body {
+    font-family: "Open Sans", sans-serif;
+    background: url("https://i.imgur.com/HgflTDf.jpg") 50% fixed;
+    background-size: cover;
+}

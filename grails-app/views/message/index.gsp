@@ -19,7 +19,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             %{--<f:table collection="${messageList}" />--}%
-            <table>
+    %{--        <table>
                 <thead>
                 <tr>
                     <th class="sortable" ><a href="/mbdstp/message/index?sort=target&amp;max=10&amp;order=asc">Target</a></th>
@@ -40,12 +40,159 @@
                         <td><a href="/mbdstp/user/show/${message.target.id}">${message.author.username}</a></td>
                     </tr>
                 </g:each>
+
                 </tbody>
-            </table>
+            </table>--}%
+
+
+<g:each var ="message" in="${messageList}">
+
+            <div class='ui'>
+                <div class='widget'>
+                    <div class='widget-conversation'>
+                        <ul id='conversation'>
+
+                            <li class='message-left'>
+                                <div class='message-avatar'>
+                                    <img class="img" src="http://127.0.0.1:8888/${message.author.image}">
+                                    <div class='name'>${message.author.username}</div>
+                                </div>
+                                <div class='message-avatar-right'>
+                                    <img class="img" src="http://127.0.0.1:8888/${message.target.image}">
+                                    <div class='name'>${message.target.username}</div>
+                                </div>
+                                <div class='message-text'>${message.content}</div>
+                                <div class='message-hour' style="visibility: hidden">08:55 <span class='ion-android-done-all'></span></div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+</g:each>
 
             <div class="pagination">
                 <g:paginate total="${messageCount ?: 0}" />
             </div>
         </div>
+
+    <style>
+
+    .img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li.message-left{
+        margin-bottom: 50px;
+    }
+
+    .message-text {
+        max-width: calc(100% - 400px);
+        padding: 12px;
+        border-radius: 4px;
+        background-color: #e7e9f2;
+        line-height: 1.1;
+        color: #263959;
+    }
+
+
+    li.message-left > .message-text {
+        text-align: left;
+        margin-left: 90px;
+        margin-right: 50px;
+    }
+
+    li.message-right > .message-text {
+        text-align: right;
+    }
+
+    .message-text:before {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 10px;
+        border: 8px solid;
+    }
+
+    li.message-left > .message-text:before {
+        left: 73.5px;
+        border-color: transparent #e7e9f2 transparent transparent;
+    }
+
+    li:nth-child(even).message-right > .message-text:before {
+        right: 45px;
+        border-color: transparent transparent transparent #e7e9f2;
+    }
+
+
+
+    li.message-left,
+    li.message-right {
+        position: relative;
+        margin-left: 20px;
+    }
+
+    .message-avatar {
+        width: 40px;
+    }
+
+    li.message-left > .message-avatar {
+        float: left;
+    }
+
+    li.message-right > .message-avatar {
+        float: right;
+    }
+
+    li.message-left > .message-avatar-right {
+        float: right;
+        margin-right: 230px;
+    }
+
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        font-size: 3.1em;
+        line-height: 40px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    li.message-left .avatar {
+        float: left;
+        color: #9bc6b6;
+        background-color: #55967e;
+    }
+
+    li.message-right .avatar {
+        float: right;
+        color: #b3becc;
+        background-color: #6d819c;
+    }
+
+    .name {
+        font-size: 1em;
+        color: #6d819c;
+        text-align: center;
+    }
+
+    .message-avatar, .message-text,
+    .message-hour, button {
+        -webkit-transition: all 0.6s ease;
+        -moz-transition: all 0.6s ease;
+        -ms-transition: all 0.6s ease;
+        -o-transition: all 0.6s ease;
+        transition: all 0.6s ease;
+    }
+    </style>
     </body>
 </html>
