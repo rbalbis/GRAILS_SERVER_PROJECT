@@ -5,13 +5,22 @@
 }
 
 
+
+.main:hover{
+    background-color: #c9ced6!important;
+}
+
 .demo-card-wide {
     flex-direction: column;
+    width: 240px!important;
+
+
 }
 
 
 .demo-card-wide > div {
     flex : 1;
+
 }
 
 
@@ -20,11 +29,14 @@
     display: flex!important;
     justify-content: space-around!important;
     flex-wrap: wrap!important;
+
     align-content: center!important;
     overflow-y: auto;
     min-height: 0px;
 
 }
+
+
 
 
 .profil_page {
@@ -35,7 +47,7 @@
 
 .profil_pic{
     width: 100%;
-    max-height:20em;
+    max-height:15em;
 }
 
 
@@ -50,8 +62,15 @@
 
 .user_menu{
 opacity: 1!important;
+    max-height: 3em;
+    display: flex;
 }
 
 .logo{
     width: 2em;
+}
+
+.link{
+    flex-basis: 2em;
+
 }
