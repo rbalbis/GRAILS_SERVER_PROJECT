@@ -36,10 +36,24 @@ class CustomUserService {
         def roleQuery = Role.where { authority == params.get('role') }
         Role role = roleQuery.find()
 
-        def newUser = new User(username:user.username, password: user.password, image: imageName).save(flush:true, failOnError:true)
+        def userQuery = User.where { id == user.id }
+        User oldUser = userQuery.find()
 
+        def newUser
 
-        new User(username:user.username, password: user.password, image: imageName).
+        // Si c'est un update
+        if(oldUser != null){
+            oldUser.setUsername(user.username)
+            oldUser.setPassword(user.password)
+            oldUser.setImage(user.image)
+            oldUser.save(flush:true, failOnError:true)
+            newUser = oldUser
+        }
+        // Si c'est une création
+        else{
+            newUser = new User(username:user.username, password: user.password, image: imageName).save(flush:true, failOnError:true)
+        }
+
 
         UserRole.create(newUser, role,true)
         return newUser
