@@ -37,6 +37,7 @@
                     <g:textField name="image" id="imageName" style="display: none;"/>
                     <br/>
                     <label>Image: </label>
+                    <br/>
                     <div class="contentDrop" ondragover="allowDrop(event)" ondrop="drop(event)" style="display:inline-block;">
                          <div class="circle">
                              <svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -62,8 +63,13 @@
                 </fieldset>
             </g:uploadForm>
         </div>
-    <asset:javascript src="drag.js"/>
+    <asset:javascript src="dragCreate.js"/>
     <asset:stylesheet src="drag.css"/>
 
+    <style>
+    .content{
+        background-color: transparent!important;
+    }
+    </style>
     </body>
 </html>

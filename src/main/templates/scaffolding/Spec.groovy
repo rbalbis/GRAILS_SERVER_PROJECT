@@ -1,11 +1,11 @@
-package fr.mbds.tp
+<%=packageName ? "package ${packageName}" : ''%>
 
 import grails.testing.gorm.DomainUnitTest
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class UserControllerSpec extends Specification implements ControllerUnitTest<UserController>, DomainUnitTest<User> {
+class ${className}ControllerSpec extends Specification implements ControllerUnitTest<${className}Controller>, DomainUnitTest<${className}> {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,7 +17,7 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.userService = Mock(UserService) {
+        controller.${propertyName}Service = Mock(${className}Service) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         controller.index()
 
         then:"The model is correct"
-        !model.userList
-        model.userCount == 0
+        !model.${modelName}List
+        model.${modelName}Count == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         controller.create()
 
         then:"The model is correctly created"
-        model.user!= null
+        model.${propertyName}!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/user/index'
+        response.redirectedUrl == '/${propertyName}/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.userService = Mock(UserService) {
-            1 * save(_ as User)
+        controller.${propertyName}Service = Mock(${className}Service) {
+            1 * save(_ as ${className})
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def user = new User(params)
-        user.id = 1
+        def ${propertyName} = new ${className}(params)
+        ${propertyName}.id = 1
 
-        controller.save(user)
+        controller.save(${propertyName})
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/user/show/1'
+        response.redirectedUrl == '/${propertyName}/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.userService = Mock(UserService) {
-            1 * save(_ as User) >> { User user ->
-                throw new ValidationException("Invalid instance", user.errors)
+        controller.${propertyName}Service = Mock(${className}Service) {
+            1 * save(_ as ${className}) >> { ${className} ${propertyName} ->
+                throw new ValidationException("Invalid instance", ${propertyName}.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def user = new User()
-        controller.save(user)
+        def ${propertyName} = new ${className}()
+        controller.save(${propertyName})
 
         then:"The create view is rendered again with the correct model"
-        model.user != null
+        model.${propertyName} != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.userService = Mock(UserService) {
+        controller.${propertyName}Service = Mock(${className}Service) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
 
     void "Test the show action with a valid id"() {
         given:
-        controller.userService = Mock(UserService) {
-            1 * get(2) >> new User()
+        controller.${propertyName}Service = Mock(${className}Service) {
+            1 * get(2) >> new ${className}()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.user instanceof User
+        model.${propertyName} instanceof ${className}
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.userService = Mock(UserService) {
+        controller.${propertyName}Service = Mock(${className}Service) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.userService = Mock(UserService) {
-            1 * get(2) >> new User()
+        controller.${propertyName}Service = Mock(${className}Service) {
+            1 * get(2) >> new ${className}()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.user instanceof User
+        model.${propertyName} instanceof ${className}
     }
 
 
@@ -149,14 +149,14 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/user/index'
+        response.redirectedUrl == '/${propertyName}/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.userService = Mock(UserService) {
-            1 * save(_ as User)
+        controller.${propertyName}Service = Mock(${className}Service) {
+            1 * save(_ as ${className})
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def user = new User(params)
-        user.id = 1
+        def ${propertyName} = new ${className}(params)
+        ${propertyName}.id = 1
 
-        controller.update(user)
+        controller.update(${propertyName})
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/user/show/1'
+        response.redirectedUrl == '/${propertyName}/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.userService = Mock(UserService) {
-            1 * save(_ as User) >> { User user ->
-                throw new ValidationException("Invalid instance", user.errors)
+        controller.${propertyName}Service = Mock(${className}Service) {
+            1 * save(_ as ${className}) >> { ${className} ${propertyName} ->
+                throw new ValidationException("Invalid instance", ${propertyName}.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new User())
+        controller.update(new ${className}())
 
         then:"The edit view is rendered again with the correct model"
-        model.user != null
+        model.${propertyName} != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/user/index'
+        response.redirectedUrl == '/${propertyName}/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.userService = Mock(UserService) {
+        controller.${propertyName}Service = Mock(${className}Service) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/user/index'
+        response.redirectedUrl == '/${propertyName}/index'
         flash.message != null
     }
 }

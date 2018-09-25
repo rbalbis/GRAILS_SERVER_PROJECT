@@ -9,14 +9,14 @@ function guid() {
 }
 
 var imageName = guid();
-var oldImageName = ""; // pour supprimer l'ancien image en cas de plusieurs drag
+var oldImageName = ""; // pour supprimer l'ancien image en cas de plusieurs dragCreate
 console.log(imageName);
 
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function drag(ev) {
+function dragCreate(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
 
@@ -83,15 +83,49 @@ function afterLoad(files) {
 
 
 // Envoyé l'image au serveur au moment du drop
-$(".file").change(function() {
-    var file = document.getElementById("file").files[0];
-    oldImageName = imageName;
-    imageName = guid() + "." + file.type.split("/")[1]; // obtenir le vrai type de l'image pour plus de sécurité
-    console.log(imageName);
-    document.getElementById("imageName").value = imageName;
-    var form = new FormData();
-    form.append("image", file);
-    form.append("imageName", imageName);
-    form.append("oldImageName", oldImageName);
-    $.ajax("http://localhost:8081/mbdstp/user/saveImage", {type: "POST", contentType: false, cache: false, processData: false, data: form});
-});
+var path = window.location.pathname;
+console.log("path : " + path);
+
+    $(".file").change(function () {
+        if(path.includes("create")) {
+            console.log("   DANS LA QUERY2222222")
+
+            var file = document.getElementById("file").files[0];
+            oldImageName = imageName;
+            imageName = guid() + "." + file.type.split("/")[1]; // obtenir le vrai type de l'image pour plus de sécurité
+            console.log(imageName);
+            document.getElementById("imageName").value = imageName;
+            console.log(imageName);
+
+            var form = new FormData();
+            form.append("image", file);
+            form.append("imageName", imageName);
+            form.append("oldImageName", oldImageName);
+            $.ajax("http://localhost:8081/mbdstp/user/saveImage", {
+                type: "POST",
+                contentType: false,
+                cache: false,
+                processData: false,
+                data: form
+            });
+        }
+
+        if(path.includes("edit")) {
+            console.log("   DANS LA QUERY")
+
+            var file = document.getElementById("file").files[0];
+            oldImageName = document.getElementById("imgName").innerText;
+            imageName = guid() + "." + file.type.split("/")[1]; // obtenir le vrai type de l'image pour plus de sécurité
+            console.log(imageName);
+            document.getElementById("imageName").value = imageName;
+            console.log(imageName);
+            document.getElementById("imgName").innerText = imageName;
+
+            var form = new FormData();
+            form.append("image", file);
+            form.append("imageName", imageName);
+            form.append("oldImageName", oldImageName);
+            $.ajax("http://localhost:8081/mbdstp/user/saveImage", {type: "POST", contentType: false, cache: false, processData: false, data: form});
+        }
+    });
+

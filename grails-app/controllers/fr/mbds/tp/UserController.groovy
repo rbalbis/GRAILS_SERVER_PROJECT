@@ -14,7 +14,7 @@ class UserController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 120, 100)
@@ -72,7 +72,7 @@ class UserController {
         }
 
         try {
-            userService.save(user)
+            customUserService.save(user, request, params)
         } catch (ValidationException e) {
             respond user.errors, view:'edit'
             return

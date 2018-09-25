@@ -10,30 +10,29 @@
 
 
 <div id="menu">
-    <a href="user/index">
-<div class="demo-card-wide mdl-card mdl-shadow--2dp" onclick="user()" style="display: inline-block">
+    <a href="user/index" style="text-decoration: none">
+<div class="demo-card-wide mdl-card-home mdl-shadow--2dp" style="display: inline-block">
     <div class="mdl-card__titleUser">
-
-    </div>
-    <div class="mdl-card__supporting-text">
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-        Utilisateurs
+        <img src="assets/user.png" class="img-menu"/>
+        <span class="value">Utilisateurs</span>
     </div>
 </div>
     </a>
-
-    <a href="message">
-<div class="demo-card-wide mdl-card mdl-shadow--2dp"  style="display: inline-block">
-    <div class="mdl-card__titleMessage">
-
-    </div>
-    <div class="mdl-card__supporting-text">
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-        Message
-    </div>
-</div>
+    <a href="message/index" style="text-decoration: none">
+        <div class="demo-card-wide mdl-card-home mdl-shadow--2dp" style="display: inline-block">
+            <div class="mdl-card__titleUser">
+                <img src="assets/message.png" class="img-menu"/>
+                <span class="value">Messages</span>
+            </div>
+        </div>
+    </a>
+    <a href="resultat/index" style="text-decoration: none">
+        <div class="demo-card-wide mdl-card-home mdl-shadow--2dp" style="display: inline-block">
+            <div class="mdl-card__titleUser">
+                <img src="assets/results.png" class="img-menu"/>
+                <span class="value">Résultats</span>
+            </div>
+        </div>
     </a>
 </div>
 

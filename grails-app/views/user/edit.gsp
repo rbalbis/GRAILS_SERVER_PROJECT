@@ -26,15 +26,44 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.user}" method="PUT">
-                <g:hiddenField name="version" value="${this.user?.version}" />
+            <g:uploadForm resource="${this.user}" method="PUT">
                 <fieldset class="form">
-                    <f:all bean="user"/>
+                    <label>Username: </label>
+                    <g:textField name="username" value="${this.user.username}"/><br/>
+                    <label>Password: </label>
+                    <g:passwordField name="password"/><br/>
+                    <label>Rôle de utilisateur: </label>
+                    <g:select name="role" from="${fr.mbds.tp.Role.findAll().authority}" value="${authority}"/>
+                    <g:textField name="image" id="imageName" style="display: none;"/>
+                    <br/>
+                    <label>Image: </label>
+                    <br/>
+                    <div class="contentDrop" ondragover="allowDrop(event)" ondrop="drop(event)" style="display:inline-block;">
+                        <div class="circle">
+                            <svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+                            </svg>
+                        </div>
+                        <drop-zone id="dropZone">
+                            <section slot="label">
+                                <div class="button-wrapper">
+                                    <label id="nameImg" class="label" for="fileElem">Faites glisser l'image ici OU</label>
+                                    <button type="button" id="button" class="btn" onclick="load()">Choisissez votre image</button>
+                                    <input type="file" name="image2" id="file" class="file" multiple accept="image/*" onchange="afterLoad(this.files)">
+                                </div>
+                            </section>
+                        </drop-zone>
+                    </div>
+                    <img id="img" ondrop="drop(event)" ondragover="allowDrop(event)" src="http://127.0.0.1:8888/${this.user.image}"/>
+                    <p id="imgName" style="">${this.user.image}</p>
                 </fieldset>
+                <div id="list"></div>
                 <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+                    <g:submitButton name="update" class="update" value="${message(code: 'default.button.create.label', default: 'Update')}" />
                 </fieldset>
-            </g:form>
+            </g:uploadForm>
         </div>
+    <asset:stylesheet src="drag.css"/>
     </body>
 </html>
