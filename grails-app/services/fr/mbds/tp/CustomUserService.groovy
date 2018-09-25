@@ -28,30 +28,36 @@ class CustomUserService {
 
     }
 
-    def save(User user, HttpServletRequest request, GrailsParameterMap params){
+    def save(HttpServletRequest request, GrailsParameterMap params){
 
-        String imageName = user.image
         System.out.print(params.get('role'))
+
 
         def roleQuery = Role.where { authority == params.get('role') }
         Role role = roleQuery.find()
 
-        def userQuery = User.where { id == user.id }
-        User oldUser = userQuery.find()
-
+        def id = params.get('id')
+        def username = params.get('username')
+        def password = params.get('password')
+        def image = params.get('image')
         def newUser
 
         // Si c'est un update
-        if(oldUser != null){
-            oldUser.setUsername(user.username)
-            oldUser.setPassword(user.password)
-            oldUser.setImage(user.image)
+        if(id != null){
+            def userQuery = User.where { id == id }
+            User oldUser = userQuery.find()
+            oldUser.setUsername(username)
+            if (password != null){
+                oldUser.setPassword(password)
+            }
+            oldUser.setImage(image)
             oldUser.save(flush:true, failOnError:true)
             newUser = oldUser
         }
+
         // Si c'est une création
         else{
-            newUser = new User(username:user.username, password: user.password, image: imageName).save(flush:true, failOnError:true)
+            newUser = new User(username: username, password:  password, image: image).save(flush:true, failOnError:true)
         }
 
 

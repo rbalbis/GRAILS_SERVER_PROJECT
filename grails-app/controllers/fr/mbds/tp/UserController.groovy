@@ -29,13 +29,10 @@ class UserController {
         respond new User(params)
     }
 
-    def save(User user) {
-        if (user == null) {
-            notFound()
-            return
-        }
+    def save() {
+        def user
         try {
-            user = customUserService.save(user, request, params)
+            user = customUserService.save(request, params)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return
@@ -65,22 +62,18 @@ class UserController {
         respond userService.get(id)
     }
 
-    def update(User user) {
-        if (user == null) {
-            notFound()
-            return
-        }
-
+    def update() {
+        def user
         try {
-            customUserService.save(user, request, params)
+            user = customUserService.save(request, params)
         } catch (ValidationException e) {
-            respond user.errors, view:'edit'
+            respond 'Error', view:'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
+                flash.message = "L'utilisateur avec l'id ${user.id} a été mise a jour"
                 redirect user
             }
             '*'{ respond user, [status: OK] }

@@ -31,7 +31,7 @@
                     <label>Username: </label>
                     <g:textField name="username" value="${this.user.username}"/><br/>
                     <label>Password: </label>
-                    <g:passwordField name="password"/><br/>
+                    <g:passwordField name="password" /><br/>
                     <label>Rôle de utilisateur: </label>
                     <g:select name="role" from="${fr.mbds.tp.Role.findAll().authority}" value="${authority}"/>
                     <g:textField name="image" id="imageName" style="display: none;"/>
