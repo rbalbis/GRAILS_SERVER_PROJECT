@@ -24,6 +24,23 @@
 }
 
 
+.demo-card-wide:hover{
+    opacity: 0.4;
+    color: gray;
+}
+
+.demo-card-wide{
+}
+.demo-card-wide.mdl-card {
+    margin: 10px;
+    width: 350px;
+}
+
+.demo-card-wide > .mdl-card__menu {
+    color: #fff;
+}
+
+
 
 .profil{
     display: flex!important;
