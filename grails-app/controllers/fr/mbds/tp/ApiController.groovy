@@ -4,11 +4,24 @@ import grails.converters.JSON
 import grails.converters.XML
 import org.springframework.security.access.annotation.Secured
 
+import javax.servlet.http.HttpServletRequest
+
 class ApiController {
 
+    ApiService apiService
+
+
+    def renderAsExpected(int status, Object objectToRender, HttpServletRequest request) {
+
+        withFormat {
+            json { render(status: status, contentType: "application/json", objectToRender as JSON) }
+            xml { render objectToRender as XML }
+        }
+
+    }
+
     def index() {
-        switch(request.getMethod())
-        {
+        switch (request.getMethod()) {
             case "POST":
                 render "post"
                 break
@@ -21,12 +34,69 @@ class ApiController {
         render 'ok' as XML
     }
 
-    def user (User user){
-        switch(request.getMethod())
-        {
+    // Gestion utilisateur
+    def user(User user) {
+        switch (request.getMethod()) {
             case "GET":
-                render user as JSON
+                if (params.id == null) {
+                    render(status: 400, text: 'id number not provided')
+                } else {
+                    renderAsExpected(200, user, request)
+                }
                 break
+
+            case "POST":
+                if (params.username == null || params.password == null || params.role == null) {
+                    render(status: 400, text: 'parameter not provided')
+                } else {
+
+                    try {
+                        apiService.createUser(params)
+                    }
+                    catch (Exception) {
+                        render(status: 500, text: "creation de l'utilisateur impossible")
+                    }
+                    render(status: 201, text: "utilisateur cree avec succes")
+                }
+                break
+
+            case "PUT":
+                if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
+                    render(status: 400, text: 'parameter not provided')
+                } else {
+
+                    try {
+                        apiService.editUser(params)
+                    }
+                    catch (Exception) {
+                        render(status: 500, text: "modification de l'utilisateur impossible")
+                    }
+                    render(status: 200, text: "utilisateur modifie avec succes")
+                }
+                break
+
+            case "DELETE":
+                if (params.id == null) {
+                    render(status: 400, text: 'id parameter not provided')
+                } else {
+
+                    try {
+                        apiService.deleteUser(params)
+                    }
+                    catch (Exception) {
+                        render(status: 500, text: "suppression de l'utilisateur impossible")
+                    }
+                    render(status: 200, text: "utilisateur supprimé avec succes")
+                }
+                break
+
+            case "OPTIONS":
+                apiService.getUserRight()
+                render(status: 501, text: "Requete OPTION non implementé")
+                break
+            default:
+                render(status: 501, text: "requete non implementé")
+
         }
     }
 }
