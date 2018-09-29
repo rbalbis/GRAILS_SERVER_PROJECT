@@ -27,6 +27,10 @@
                     <h2 class="title">Liste des utilisateurs</h2>
                     <div class="profil">
                         <g:each var ="user" in="${userList}">
+                            <g:if test="${user.enabled}">
+
+
+
 
 
                                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
@@ -72,6 +76,7 @@
 
 
                                 </a>
+                        </g:if>
                     </g:each>
                     </div>
                 </div>

@@ -90,7 +90,12 @@ class UserController {
             return
         }
 
-        userService.delete(id)
+        User user = userService.get(id)
+
+        user.enabled = false
+        user.setEnabled(false)
+        user.save(flush:true, failOnError:true)
+
 
         request.withFormat {
             form multipartForm {
@@ -110,4 +115,7 @@ class UserController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+
+
 }
