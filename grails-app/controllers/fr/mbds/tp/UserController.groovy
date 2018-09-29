@@ -54,7 +54,7 @@ class UserController {
         customUserService.uploadImage(request)
     }
 
-    @Secured(['ROLE_USER'])
+    @Secured(['ROLE_USER','ROLE_ADMIN'])
     def getCurrentUser(){
         def user = customUserService.getCurrentUser()
         def jsonUser = user.toString()
@@ -83,6 +83,7 @@ class UserController {
         }
     }
 
+    @Secured(['ROLE_USER','ROLE_ADMIN'])
     def delete(Long id) {
         if (id == null) {
             notFound()

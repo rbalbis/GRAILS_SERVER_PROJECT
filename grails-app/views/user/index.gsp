@@ -47,8 +47,20 @@
 
                                         <g:link resource="user" class="link" action="edit" id="${user.id}"><img class="logo" src="../assets/edit.png" alt="edit"/></g:link>
 
-                                        <g:link resource="user" class="link" action="delete" id="${user.id}"><img class="logo" src="../assets/delete.png" alt="delete/${user.id}"/>
-                                        </g:link>
+                                      %{--  <g:form resource="${user}" method="DELETE" class="link">
+
+                                            <img class="logo" src="../assets/delete.png" alt="delete"
+                                                 onclick="return confirm('Voulez vous vraiment supprimer ce resultat ?');"/>
+
+
+                                        </g:form>--}%
+
+                                        <g:form resource="${user}" method="DELETE">
+                                                <input class="logo link" type="image" src="../assets/delete.png" alt="sup"
+
+                                                       onclick="return confirm('Voulez vous vraiment supprimer ce resultat ?');" />
+                                        </g:form>
+
                                     </div>
 
                                 </div>

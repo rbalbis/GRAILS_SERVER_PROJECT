@@ -23,8 +23,8 @@
     height: 15em;
 }
 
-.demo-card-wide:hover{
-    opacity: 0.4;
+.link:hover{
+    opacity: 0.7;
     color: gray;
 }
 
@@ -87,5 +87,16 @@ opacity: 1!important;
 
 .link{
     flex-basis: 2em;
+    border: 1px;
+
+}
+
+input.logo{
+
+
+    background-color: none;
+    border: 0px;
+    font-size: 1em;
+    padding: 0;
 
 }
