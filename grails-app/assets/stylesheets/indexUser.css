@@ -1,10 +1,7 @@
 
-
 .title{
     text-align: center;
 }
-
-
 
 .main:hover{
     background-color: #c9ced6!important;
@@ -17,12 +14,14 @@
 
 }
 
-
 .demo-card-wide > div {
     flex : 1;
 
 }
 
+.profil_pic_div{
+    height: 15em;
+}
 
 .demo-card-wide:hover{
     opacity: 0.4;
@@ -31,16 +30,16 @@
 
 .demo-card-wide{
 }
+
 .demo-card-wide.mdl-card {
     margin: 10px;
     width: 350px;
+    height: 26em;
 }
 
 .demo-card-wide > .mdl-card__menu {
     color: #fff;
 }
-
-
 
 .profil{
     display: flex!important;
@@ -50,10 +49,7 @@
     align-content: center!important;
     overflow-y: auto;
     min-height: 0px;
-
 }
-
-
 
 
 .profil_page {
@@ -81,6 +77,8 @@
 opacity: 1!important;
     max-height: 3em;
     display: flex;
+    justify-content: space-evenly;
+
 }
 
 .logo{

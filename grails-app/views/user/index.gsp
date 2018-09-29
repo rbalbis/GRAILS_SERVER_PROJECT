@@ -30,8 +30,8 @@
 
 
                                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-                                    <div class="main">
-                                        <img class="profil_pic" src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face">
+                                    <div>
+                                        <div class="profil_pic_div"><img class="profil_pic" src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face"></div>
 
                                         <div class="mdl-card__title text_card">
                                             <h2 class="mdl-card__title-text">${user.username}</h2>
@@ -47,7 +47,7 @@
 
                                         <g:link resource="user" class="link" action="edit" id="${user.id}"><img class="logo" src="../assets/edit.png" alt="edit"/></g:link>
 
-                                        <g:link resource="user" class="link" action="delete" id="${user.id}"><img class="logo" src="../assets/delete.png" alt="edit"/>
+                                        <g:link resource="user" class="link" action="delete" id="${user.id}"><img class="logo" src="../assets/delete.png" alt="delete/${user.id}"/>
                                         </g:link>
                                     </div>
 
