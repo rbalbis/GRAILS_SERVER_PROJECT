@@ -29,10 +29,13 @@ class UserController {
         respond new User(params)
     }
 
-    def save() {
-        def user
+    def save(User user) {
+        if (user == null) {
+            notFound()
+            return
+        }
         try {
-            user = customUserService.save(request, params)
+            user = customUserService.save(user, request, params)
         } catch (ValidationException e) {
             respond user.errors, view:'create'
             return

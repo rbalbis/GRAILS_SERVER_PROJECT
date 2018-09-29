@@ -17,18 +17,34 @@ class CustomUserService {
 //        String imageName = UUID.randomUUID().toString() + "."+ f.getFile('image').contentType.split("/")[-1]
         String imageName = f.getParameter("imageName")
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
-        String pathToFile= FILE_PATH + imageName
+        String pathToFile = FILE_PATH + imageName
         f.getFile('image').transferTo(new File(pathToFile))
 
         String oldImageName = f.getParameter("oldImageName")
-        String pathToOldFile= FILE_PATH + oldImageName
+        String pathToOldFile = FILE_PATH + oldImageName
         File file = new File(pathToOldFile)
         file.delete()
         return imageName
 
     }
 
-    def save(HttpServletRequest request, GrailsParameterMap params){
+    // Methode save pour la creation d'un compte
+    def save(User user, HttpServletRequest request, GrailsParameterMap params) {
+
+        String imageName = user.image
+
+        def roleQuery = Role.where { authority == params.get('role') }
+        Role role = roleQuery.find()
+
+        def newUser = new User(username: user.username, password: user.password, image: imageName).save(flush: true, failOnError: true)
+
+        UserRole.create(newUser, role, true)
+        return newUser
+
+    }
+
+    // Methode save pour la modification d'un compte deja existant
+    def save(HttpServletRequest request, GrailsParameterMap params) {
 
         System.out.print(params.get('role'))
 
@@ -42,34 +58,26 @@ class CustomUserService {
         def image = params.get('image')
         def newUser
 
-        // Si c'est un update
-        if(id != null){
-            def userQuery = User.where { id == id }
-            User oldUser = userQuery.find()
-            oldUser.setUsername(username)
-            if (password != null){
-                oldUser.setPassword(password)
-            }
-            oldUser.setImage(image)
-            oldUser.save(flush:true, failOnError:true)
-            newUser = oldUser
+        def userQuery = User.where { id == id }
+        User oldUser = userQuery.find()
+        oldUser.setUsername(username)
+        if (password != null) {
+            oldUser.setPassword(password)
         }
+        oldUser.setImage(image)
+        oldUser.save(flush: true, failOnError: true)
+        newUser = oldUser
 
-        // Si c'est une création
-        else{
-            newUser = new User(username: username, password:  password, image: image).save(flush:true, failOnError:true)
-        }
-
-
-        UserRole.create(newUser, role,true)
+        UserRole.create(newUser, role, true)
         return newUser
 
     }
 
 
-    User getCurrentUser(){
+    User getCurrentUser() {
         User user = springSecurityService.currentUser
         return user
 
     }
+
 }
