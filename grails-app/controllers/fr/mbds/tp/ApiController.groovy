@@ -40,29 +40,35 @@ class ApiController {
             case "GET":
                 if (params.id == null) {
                     render(status: 400, text: 'id number not provided')
+                    break
                 } else {
                     renderAsExpected(200, user, request)
+                    break
                 }
                 break
 
             case "POST":
                 if (params.username == null || params.password == null || params.role == null) {
                     render(status: 400, text: 'parameter not provided')
+                    break
                 } else {
 
                     try {
                         apiService.createUser(params)
                     }
-                    catch (Exception) {
-                        render(status: 500, text: "creation de l'utilisateur impossible")
+                    catch (Exception e) {
+                        render(status: 500, text: "creation de l'utilisateur impossible ${e}")
+                        break
                     }
                     render(status: 201, text: "utilisateur cree avec succes")
+                    break
                 }
                 break
 
             case "PUT":
                 if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
                     render(status: 400, text: 'parameter not provided')
+                    break
                 } else {
 
                     try {
@@ -70,14 +76,17 @@ class ApiController {
                     }
                     catch (Exception) {
                         render(status: 500, text: "modification de l'utilisateur impossible")
+                        break
                     }
                     render(status: 200, text: "utilisateur modifie avec succes")
+                    break
                 }
                 break
 
             case "DELETE":
                 if (params.id == null) {
                     render(status: 400, text: 'id parameter not provided')
+                    break
                 } else {
 
                     try {
@@ -85,8 +94,10 @@ class ApiController {
                     }
                     catch (Exception) {
                         render(status: 500, text: "suppression de l'utilisateur impossible")
+                        break
                     }
                     render(status: 200, text: "utilisateur supprimé avec succes")
+                    break
                 }
                 break
 
@@ -96,6 +107,7 @@ class ApiController {
                 break
             default:
                 render(status: 501, text: "requete non implementé")
+                break
 
         }
     }

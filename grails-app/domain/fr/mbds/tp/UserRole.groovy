@@ -36,6 +36,7 @@ class UserRole implements Serializable {
 
 	static UserRole get(long userId, long roleId) {
 		criteriaFor(userId, roleId).get()
+
 	}
 
 	static boolean exists(long userId, long roleId) {
