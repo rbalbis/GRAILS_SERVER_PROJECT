@@ -41,21 +41,21 @@ class ApiService {
 
     //TODO modification utilisateur suite requete put
     @Secured(['ROLE_ADMIN'])
-    def editUser(GrailsParameterMap params, HttpServletRequest request) {
-        def userQuery = User.where { id == request.JSON.id }
+    def editUser(GrailsParameterMap params) {
+        def userQuery = User.where { id == params.id }
         User user = userQuery.find()
-        if (request.JSON.username != null) user.setUsername(request.JSON.username)
-        if (request.JSON.password != null) user.setPassword(request.JSON.password)
-        if (request.JSON.role != null) {
+        if (params.username != null) user.setUsername(params.username)
+        if (params.password != null) user.setPassword(params.password)
+        if (params.role != null) {
             UserRole.removeAll(user)
-            UserRole.create(user: user,role: request.JSON.role, flush : true)
+            UserRole.create(user: user,role: params.role, flush : true)
         }
     }
 
     //suppression utilisateur suite requete delete
     @Secured(['ROLE_ADMIN'])
-    def deleteUser(GrailsParameterMap params, HttpServletRequest request) {
-        def userQuery = User.where { id == request.JSON.id }
+    def deleteUser(GrailsParameterMap params) {
+        def userQuery = User.where { id == params.id }
         User user = userQuery.find()
         user.setEnabled(false)
     }
