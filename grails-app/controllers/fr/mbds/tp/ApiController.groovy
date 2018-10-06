@@ -84,7 +84,7 @@ class ApiController {
                 break
 
             case "DELETE":
-                if (params.id == null) {
+                if (request.JSON.id == null) {
                     render(status: 400, text: 'id parameter not provided')
                     break
                 } else {

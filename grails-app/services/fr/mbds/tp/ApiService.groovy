@@ -3,6 +3,7 @@ package fr.mbds.tp
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
 
+import javax.servlet.http.HttpServletRequest
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -15,7 +16,7 @@ class ApiService {
 
 
 
-    //TODO creation d'un nouveau utilisateur suite requete post
+    //creation d'un nouveau utilisateur suite requete post
     def createUser(GrailsParameterMap params) {
 
         User newUser
@@ -43,10 +44,14 @@ class ApiService {
 
     }
 
-    //TODO suppression utilisateur suite requete delete
-    def deleteUser(GrailsParameterMap params) {
-
+    //suppression utilisateur suite requete delete
+    def deleteUser(GrailsParameterMap params, HttpServletRequest request) {
+        def userQuery = User.where { id == request.JSON.id }
+        User user = userQuery.find()
+        user.setEnabled(false)
     }
+
+
 
     //TODO affichage des droits de l'utilisateur
     def getUserRight(){
@@ -73,3 +78,4 @@ class ApiService {
 
     }
 }
+
