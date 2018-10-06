@@ -66,13 +66,13 @@ class ApiController {
                 break
 
             case "PUT":
-                if (request.JSON.username == null && request.JSON.password == null && request.JSON.role == null  || request.JSON.id == null) {
+                if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
                     render(status: 400, text: 'parameter not provided')
                     break
                 } else {
 
                     try {
-                        apiService.editUser(params,request)
+                        apiService.editUser(params)
                     }
                     catch (Exception) {
                         render(status: 500, text: "modification de l'utilisateur impossible")
@@ -84,13 +84,13 @@ class ApiController {
                 break
 
             case "DELETE":
-                if (request.JSON.id == null) {
+                if (params.id == null) {
                     render(status: 400, text: 'id parameter not provided')
                     break
                 } else {
 
                     try {
-                        apiService.deleteUser(params, request)
+                        apiService.deleteUser(params)
                     }
                     catch (Exception) {
                         render(status: 500, text: "suppression de l'utilisateur impossible")
