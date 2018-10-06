@@ -34,7 +34,15 @@ class ApiController {
         render 'ok' as XML
     }
 
+    @Secured(['ROLE_ADMIN'])
+    def createUser(){
+        System.out.println("createUSEREEEE")
+        apiService.createUser(params)
+    }
+
+
     // Gestion utilisateur
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
     def user(User user) {
         switch (request.getMethod()) {
             case "GET":
@@ -54,7 +62,7 @@ class ApiController {
                 } else {
 
                     try {
-                        apiService.createUser(params)
+                        //createUser()
                     }
                     catch (Exception e) {
                         render(status: 500, text: "creation de l'utilisateur impossible ${e}")
@@ -72,7 +80,7 @@ class ApiController {
                 } else {
 
                     try {
-                        apiService.editUser(params)
+                        apiService.editUser(params, request)
                     }
                     catch (Exception) {
                         render(status: 500, text: "modification de l'utilisateur impossible")
@@ -90,10 +98,10 @@ class ApiController {
                 } else {
 
                     try {
-                        apiService.deleteUser(params)
+                        apiService.deleteUser(params, request)
                     }
                     catch (Exception) {
-                        render(status: 500, text: "suppression de l'utilisateur impossible")
+                        render(status: 500, text: "suppression de l'utilisateur impossible" + Exception)
                         break
                     }
                     render(status: 200, text: "utilisateur supprimé avec succes")

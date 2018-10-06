@@ -2,7 +2,7 @@ package fr.mbds.tp
 
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
-
+import grails.plugin.springsecurity.annotation.Secured
 import javax.servlet.http.HttpServletRequest
 import java.nio.file.Files
 import java.nio.file.Path
@@ -17,6 +17,7 @@ class ApiService {
 
 
     //creation d'un nouveau utilisateur suite requete post
+    @Secured(['ROLE_USER','ROLE_ADMIN'])
     def createUser(GrailsParameterMap params) {
 
         User newUser
@@ -39,12 +40,20 @@ class ApiService {
     }
 
     //TODO modification utilisateur suite requete put
-    def editUser(GrailsParameterMap params) {
-
-
+    @Secured(['ROLE_ADMIN'])
+    def editUser(GrailsParameterMap params, HttpServletRequest request) {
+        def userQuery = User.where { id == request.JSON.id }
+        User user = userQuery.find()
+        if (request.JSON.username != null) user.setUsername(request.JSON.username)
+        if (request.JSON.password != null) user.setPassword(request.JSON.password)
+        if (request.JSON.role != null) {
+            UserRole.removeAll(user)
+            UserRole.create(user: user,role: request.JSON.role, flush : true)
+        }
     }
 
     //suppression utilisateur suite requete delete
+    @Secured(['ROLE_ADMIN'])
     def deleteUser(GrailsParameterMap params, HttpServletRequest request) {
         def userQuery = User.where { id == request.JSON.id }
         User user = userQuery.find()
