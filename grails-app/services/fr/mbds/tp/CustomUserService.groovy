@@ -67,6 +67,7 @@ class CustomUserService {
         oldUser.save(flush: true, failOnError: true)
         newUser = oldUser
 
+        UserRole.removeAll(newUser)
         UserRole.create(newUser, role, true)
         return newUser
 

@@ -3,6 +3,7 @@ package fr.mbds.tp
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
 
+import javax.servlet.http.HttpServletRequest
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -38,13 +39,26 @@ class ApiService {
     }
 
     //TODO modification utilisateur suite requete put
-    def editUser(GrailsParameterMap params) {
+    def editUser(GrailsParameterMap params, HttpServletRequest request) {
+
+        def userQuery = User.where { id == request.JSON.id }
+        User user = userQuery.find()
+        print("helo")
+        if (request.JSON.username != null) user.setUsername(request.JSON.username)
+        if (request.JSON.password != null) user.setPassword(request.JSON.password)
+        if (request.JSON.role != null) {
+            UserRole.removeAll(user)
+            UserRole.create(user: user,role: request.JSON.role, flush : true)
+        }
 
 
     }
 
     //TODO suppression utilisateur suite requete delete
-    def deleteUser(GrailsParameterMap params) {
+    def deleteUser(GrailsParameterMap params, HttpServletRequest request) {
+        def userQuery = User.where { id == request.JSON.id }
+        User user = userQuery.find()
+        user.setEnabled(false)
 
     }
 
