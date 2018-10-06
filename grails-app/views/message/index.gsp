@@ -19,7 +19,6 @@
 </div>
 
 <div id="list-message" class="content scaffold-list" role="main">
-    <h1>Liste des messages</h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -62,11 +61,21 @@
                                 <img class="img" src="http://127.0.0.1:8888/${message.author.image}">
 
                                 <div class='name'>
+                                    <a href="/mbdstp/user/show/${message.author.id}">
+
                                     <span class="mdl-chip mdl-chip--contact">
                                         <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">${message.author.username[0].toUpperCase()}</span>
+
                                         <span class="mdl-chip__text">
-                                            ${message.author.username}</span>
+
+
+
+                                            ${message.author.username}
+
                                     </span>
+
+                                </span>
+                                    </a>
                                 </div>
                             </div>
 
@@ -74,10 +83,13 @@
                                 <img class="img" src="http://127.0.0.1:8888/${message.target.image}">
 
                                 <div class='name'>
-                                    <span class="mdl-chip mdl-chip--contact">
+                                    <a href="/mbdstp/user/show/${message.target.id}">
+
+                                        <span class="mdl-chip mdl-chip--contact">
                                         <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">${message.target.username[0].toUpperCase()}</span>
                                         <span class="mdl-chip__text">${message.target.username}</span>
                                     </span>
+                                    </a>
                                 </div>
                             </div>
 

@@ -14,8 +14,7 @@
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="show-message" class="content scaffold-show" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+        <div id="show-message" class="content scaffold-show" role="main" style="background-color: #efefef;">
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>

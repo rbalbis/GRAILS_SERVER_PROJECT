@@ -2,7 +2,7 @@ package fr.mbds.tp
 
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
-import grails.plugin.springsecurity.annotation.Secured
+
 import javax.servlet.http.HttpServletRequest
 import java.nio.file.Files
 import java.nio.file.Path
@@ -17,7 +17,6 @@ class ApiService {
 
 
     //creation d'un nouveau utilisateur suite requete post
-    @Secured(['ROLE_USER','ROLE_ADMIN'])
     def createUser(GrailsParameterMap params) {
 
         User newUser
@@ -40,20 +39,33 @@ class ApiService {
     }
 
     //TODO modification utilisateur suite requete put
-    @Secured(['ROLE_ADMIN'])
     def editUser(GrailsParameterMap params, HttpServletRequest request) {
-        def userQuery = User.where { id == request.JSON.id }
-        User user = userQuery.find()
-        if (request.JSON.username != null) user.setUsername(request.JSON.username)
-        if (request.JSON.password != null) user.setPassword(request.JSON.password)
-        if (request.JSON.role != null) {
-            UserRole.removeAll(user)
-            UserRole.create(user: user,role: request.JSON.role, flush : true)
+        def roleQuery = Role.where { authority == params.get('role') }
+        Role role = roleQuery.find()
+        request.JSON.role
+        def id = params.get('id')
+        def username = request.JSON.username
+        def password = request.JSON.password
+        def newUser
+
+        def userQuery = User.where { id == id }
+        User oldUser = userQuery.find()
+        oldUser.setUsername(username)
+        if (password != null) {
+            oldUser.setPassword(password)
         }
+        if (request.JSON.image != null){
+            def imageName = uploadImage(params, request)
+        }
+        oldUser.setImage(imageName)
+        oldUser.save(flush: true, failOnError: true)
+        newUser = oldUser
+
+        UserRole.create(newUser, role, true)
+        return newUser
     }
 
     //suppression utilisateur suite requete delete
-    @Secured(['ROLE_ADMIN'])
     def deleteUser(GrailsParameterMap params, HttpServletRequest request) {
         def userQuery = User.where { id == request.JSON.id }
         User user = userQuery.find()
@@ -83,6 +95,20 @@ class ApiService {
         String FILE_PATH = grailsApplication.config.getProperty('filePath')
         String pathToFile = FILE_PATH + imageName
         image.transferTo(new File(pathToFile))
+        return imageName
+
+    }
+
+    // Permet l'upload de l'image sur le serveur web
+    def uploadImage(params, HttpServletRequest request) {
+
+        def image = request.JSON.image
+        if(image != "null") {
+            String imageName = UUID.randomUUID().toString() + "." + image.contentType.split("/")[-1]
+            String FILE_PATH = grailsApplication.config.getProperty('filePath')
+            String pathToFile = FILE_PATH + imageName
+            image.transferTo(new File(pathToFile))
+        }
         return imageName
 
     }

@@ -21,7 +21,7 @@
         <!-- Title -->
         <a class="mdl-navigation__link" href="/mbdstp"><span class="mdl-layout-title">TP Grails</span></a>
         <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-layout-spacer">Accueil</div>
         <!-- Navigation. We hide it in small screens. -->
         <nav class="mdl-navigation mdl-layout--large-screen-only">
 <sec:ifLoggedIn>

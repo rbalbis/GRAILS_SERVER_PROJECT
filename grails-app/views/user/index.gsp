@@ -24,7 +24,7 @@
             <div class="wrapper">
 
                 <div class="container">
-                    <h2 class="title">Liste des utilisateurs</h2>
+
                     <div class="profil">
                         <g:each var ="user" in="${userList}">
                             <g:if test="${user.enabled}">
@@ -68,13 +68,6 @@
                                     </div>
 
                                 </div>
-
-
-
-
-
-
-
                                 </a>
                         </g:if>
                     </g:each>

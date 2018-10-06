@@ -26,7 +26,7 @@ class ApiController {
                 render "post"
                 break
             case "GET":
-                render "get"
+                render "get" Secured
                 break
 
         }
@@ -34,16 +34,8 @@ class ApiController {
         render 'ok' as XML
     }
 
-    @Secured(['ROLE_ADMIN'])
-    def createUser(){
-        System.out.println("createUSEREEEE")
-        apiService.createUser(params)
-    }
-
-
     // Gestion utilisateur
-    @Secured(['ROLE_ADMIN','ROLE_USER'])
-    def user(User user) {
+    def user() {
         switch (request.getMethod()) {
             case "GET":
                 if (params.id == null) {
@@ -62,7 +54,7 @@ class ApiController {
                 } else {
 
                     try {
-                        //createUser()
+                        apiService.createUser(params)
                     }
                     catch (Exception e) {
                         render(status: 500, text: "creation de l'utilisateur impossible ${e}")
@@ -74,7 +66,9 @@ class ApiController {
                 break
 
             case "PUT":
-                if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
+                params.username
+                request.binary
+                if (request.JSON.username == null && request.JSON.password == null && request.JSON.role == null && request.JSON.image == null || request.JSON.id == null) {
                     render(status: 400, text: 'parameter not provided')
                     break
                 } else {
@@ -98,10 +92,10 @@ class ApiController {
                 } else {
 
                     try {
-                        apiService.deleteUser(params, request)
+                        apiService.deleteUser(params)
                     }
                     catch (Exception) {
-                        render(status: 500, text: "suppression de l'utilisateur impossible" + Exception)
+                        render(status: 500, text: "suppression de l'utilisateur impossible")
                         break
                     }
                     render(status: 200, text: "utilisateur supprimé avec succes")
@@ -117,6 +111,21 @@ class ApiController {
                 render(status: 501, text: "requete non implementé")
                 break
 
+        }
+    }
+
+
+    def message() {
+        switch (request.getMethod()) {
+            case "GET":
+                if (params.id == null) {
+                    render(status: 400, text: 'id number not provided')
+                    break
+                } else {
+                    renderAsExpected(200, message, request)
+                    break
+                }
+                break
         }
     }
 }
