@@ -13,5 +13,7 @@ class UrlMappings {
         "500"(view:'/error')
         "404"(view:'/notFound')
         "/api/user"(controller: "Api", action: "createUser", method: "POST")
+        "/api/user"(controller: "Api", action: "editUser", method: "PUT")
+        "/api/user"(controller: "Api", action: "deleteUser", method: "DELETE")
     }
 }

@@ -20,22 +20,69 @@ class ApiController {
 
     }
 
-    def index() {
-        switch (request.getMethod()) {
-            case "POST":
-                render "post"
-                break
-            case "GET":
-                render "get" Secured
-                break
+    @Secured(['ROLE_ADMIN'])
+    def createUser(){
+        if (params.username == null || params.password == null || params.role == null) {
+            render(status: 400, text: 'parameter not provided')
+            return
+        } else {
 
+            try {
+                apiService.createUser(params)
+            }
+            catch (Exception e) {
+                render(status: 500, text: "creation de l'utilisateur impossible ${e}")
+                return
+            }
+            render(status: 201, text: "utilisateur cree avec succes")
+            return
         }
-
-        render 'ok' as XML
     }
 
+    @Secured(['ROLE_ADMIN'])
+    def editUser(){
+        if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
+            render(status: 400, text: 'parameter not provided')
+            return
+        } else {
+
+            try {
+                apiService.editUser(params)
+            }
+            catch (Exception) {
+                render(status: 500, text: "modification de l'utilisateur impossible")
+                return
+            }
+            render(status: 200, text: "utilisateur modifie avec succes")
+            return
+        }
+        return
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    def deleteUser(){
+        if (params.id == null) {
+            render(status: 400, text: 'id parameter not provided')
+            return
+        } else {
+
+            try {
+                apiService.deleteUser(params)
+            }
+            catch (Exception) {
+                render(status: 500, text: "suppression de l'utilisateur impossible" + Exception)
+                return
+            }
+            render(status: 200, text: "utilisateur supprimé avec succes")
+            return
+        }
+        return
+    }
+
+
     // Gestion utilisateur
-    def user() {
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
+    def user(User user) {
         switch (request.getMethod()) {
             case "GET":
                 if (params.id == null) {
@@ -43,62 +90,6 @@ class ApiController {
                     break
                 } else {
                     renderAsExpected(200, user, request)
-                    break
-                }
-                break
-
-            case "POST":
-                if (params.username == null || params.password == null || params.role == null) {
-                    render(status: 400, text: 'parameter not provided')
-                    break
-                } else {
-
-                    try {
-                        apiService.createUser(params)
-                    }
-                    catch (Exception e) {
-                        render(status: 500, text: "creation de l'utilisateur impossible ${e}")
-                        break
-                    }
-                    render(status: 201, text: "utilisateur cree avec succes")
-                    break
-                }
-                break
-
-            case "PUT":
-                params.username
-                request.binary
-                if (request.JSON.username == null && request.JSON.password == null && request.JSON.role == null && request.JSON.image == null || request.JSON.id == null) {
-                    render(status: 400, text: 'parameter not provided')
-                    break
-                } else {
-
-                    try {
-                        apiService.editUser(params, request)
-                    }
-                    catch (Exception) {
-                        render(status: 500, text: "modification de l'utilisateur impossible")
-                        break
-                    }
-                    render(status: 200, text: "utilisateur modifie avec succes")
-                    break
-                }
-                break
-
-            case "DELETE":
-                if (request.JSON.id == null) {
-                    render(status: 400, text: 'id parameter not provided')
-                    break
-                } else {
-
-                    try {
-                        apiService.deleteUser(params)
-                    }
-                    catch (Exception) {
-                        render(status: 500, text: "suppression de l'utilisateur impossible")
-                        break
-                    }
-                    render(status: 200, text: "utilisateur supprimé avec succes")
                     break
                 }
                 break
@@ -111,21 +102,6 @@ class ApiController {
                 render(status: 501, text: "requete non implementé")
                 break
 
-        }
-    }
-
-
-    def message() {
-        switch (request.getMethod()) {
-            case "GET":
-                if (params.id == null) {
-                    render(status: 400, text: 'id number not provided')
-                    break
-                } else {
-                    renderAsExpected(200, message, request)
-                    break
-                }
-                break
         }
     }
 }
