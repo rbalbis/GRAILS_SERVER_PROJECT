@@ -22,13 +22,13 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN'])
     def createUser(){
-        if (params.username == null || params.password == null || params.role == null) {
+        if (request.JSON.username == null || request.JSON.password == null || request.JSON.role == null) {
             render(status: 400, text: 'parameter not provided')
             return
         } else {
 
             try {
-                apiService.createUser(params)
+                apiService.createUser(request)
             }
             catch (Exception e) {
                 render(status: 500, text: "creation de l'utilisateur impossible ${e}")
@@ -41,13 +41,13 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN'])
     def editUser(){
-        if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
-            render(status: 400, text: 'parameter not provided')
+        if (request.JSON.username == null && request.JSON.password == null && request.JSON.role == null && request.JSON.image == null || request.JSON.id == null) {
+            render(status: 400, text: "parameter not provided")
             return
         } else {
 
             try {
-                apiService.editUser(params)
+                apiService.editUser(request)
             }
             catch (Exception) {
                 render(status: 500, text: "modification de l'utilisateur impossible")
@@ -59,15 +59,17 @@ class ApiController {
         return
     }
 
+
+    // TODO ne fonctionne passss !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @Secured(['ROLE_ADMIN'])
     def deleteUser(){
-        if (params.id == null) {
+        if (request.JSON.id == null) {
             render(status: 400, text: 'id parameter not provided')
             return
         } else {
 
             try {
-                apiService.deleteUser(params)
+                apiService.deleteUser(request)
             }
             catch (Exception) {
                 render(status: 500, text: "suppression de l'utilisateur impossible" + Exception)
@@ -85,7 +87,7 @@ class ApiController {
     def user(User user) {
         switch (request.getMethod()) {
             case "GET":
-                if (params.id == null) {
+                if (request.JSON.id == null) {
                     render(status: 400, text: 'id number not provided')
                     break
                 } else {
