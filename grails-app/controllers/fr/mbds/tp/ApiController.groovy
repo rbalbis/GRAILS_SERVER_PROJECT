@@ -11,6 +11,7 @@ class ApiController {
     ApiService apiService
 
 
+
     def renderAsExpected(int status, Object objectToRender, HttpServletRequest request) {
 
         withFormat {
@@ -60,7 +61,6 @@ class ApiController {
     }
 
 
-    // TODO ne fonctionne passss !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @Secured(['ROLE_ADMIN'])
     def deleteUser(){
         if (request.JSON.id == null) {
@@ -72,7 +72,7 @@ class ApiController {
                 apiService.deleteUser(request)
             }
             catch (Exception) {
-                render(status: 500, text: "suppression de l'utilisateur impossible" + Exception)
+                render(status: 500, text: "suppression de l'utilisateur impossible")
                 return
             }
             render(status: 200, text: "utilisateur supprimé avec succes")
@@ -87,17 +87,21 @@ class ApiController {
     def user(User user) {
         switch (request.getMethod()) {
             case "GET":
-                if (request.JSON.id == null) {
+                if (params.id == null) {
                     render(status: 400, text: 'id number not provided')
                     break
                 } else {
-                    renderAsExpected(200, user, request)
+                    try{renderAsExpected(200, user, request)}
+                    catch (Exception e){
+                        render(status: 500, text: "Get user impossible l'id n'est pas present dans la base")
+
+                    }
                     break
                 }
                 break
 
             case "OPTIONS":
-                apiService.getUserRight()
+                //apiService.getUserRight()
                 render(status: 501, text: "Requete OPTION non implementé")
                 break
             default:
@@ -105,5 +109,14 @@ class ApiController {
                 break
 
         }
+    }
+
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
+    def getUsersList(){
+
+        def jsonResp = User.all as JSON
+        render(status: 200,jsonResp)
+        return
+
     }
 }
