@@ -35,7 +35,7 @@
 
                                 <div class="demo-card-wide mdl-card mdl-shadow--2dp">
                                     <div>
-                                        <div class="profil_pic_div"><img class="profil_pic" src="${grailsApplication.config.getProperty('fileUrl') + user.image}" alt="face"></div>
+                                        <div class="profil_pic_div"><img class="profil_pic" src="${grailsApplication.config.getProperty('fileUrl') + user.image}"></div>
 
                                         <div class="mdl-card__title text_card">
                                             <h2 class="mdl-card__title-text">${user.username}</h2>
