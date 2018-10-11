@@ -13,16 +13,29 @@
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="list-resultat" class="content scaffold-list" role="main">
+        <div id="list-resultat" class="content scaffold-list" role="main" style="background-color: #EFEFEF;padding-bottom: 5em">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${resultatList}" />
+            <table style="width: 80%;margin-left: 10%">
+                <tr>
+                    <th>Gagnant</th>
+                    <th>Perdant</th>
+                    <th>Score gagant</th>
+                    <th>Score perdant</th>
+                </tr>
+            <g:each var="result" in="${resultatList}">
+                <tr>
+                    <th><a href="../user/show/${result.winner.id}">${result.winner.username}</a></th>
+                    <th><a href="../user/show/${result.looser.id}">${result.looser.username}</a></th>
+                    <th>${result.winnerScore}</th>
+                    <th>${result.looserScore}</th>
+                </tr>
+        </g:each>
+            </table>
+            <div>
 
-            <div class="pagination">
-                <g:paginate total="${resultatCount ?: 1}"/>
-            </div>
         </div>
     </body>
 </html>
