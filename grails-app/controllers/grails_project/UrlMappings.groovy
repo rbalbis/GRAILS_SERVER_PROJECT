@@ -15,5 +15,9 @@ class UrlMappings {
         "/api/user"(controller: "Api", action: "createUser", method: "POST")
         "/api/user"(controller: "Api", action: "editUser", method: "PUT")
         "/api/user"(controller: "Api", action: "deleteUser", method: "DELETE")
+
+        "/api/users"(controller: "Api", action: "getUsersList", method: "GET")
+        "/api/users"(controller: "Api", action: "createUser", method: "POST")
+
     }
 }

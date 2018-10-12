@@ -11,6 +11,7 @@ class ApiController {
     ApiService apiService
 
 
+
     def renderAsExpected(int status, Object objectToRender, HttpServletRequest request) {
 
         withFormat {
@@ -22,13 +23,13 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN'])
     def createUser(){
-        if (params.username == null || params.password == null || params.role == null) {
+        if (request.JSON.username == null || request.JSON.password == null || request.JSON.role == null) {
             render(status: 400, text: 'parameter not provided')
             return
         } else {
 
             try {
-                apiService.createUser(params)
+                apiService.createUser(request)
             }
             catch (Exception e) {
                 render(status: 500, text: "creation de l'utilisateur impossible ${e}")
@@ -41,13 +42,13 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN'])
     def editUser(){
-        if (params.username == null && params.password == null && params.role == null && params.image == null || params.id == null) {
-            render(status: 400, text: 'parameter not provided')
+        if (request.JSON.username == null && request.JSON.password == null && request.JSON.role == null && request.JSON.image == null || request.JSON.id == null) {
+            render(status: 400, text: "parameter not provided")
             return
         } else {
 
             try {
-                apiService.editUser(params)
+                apiService.editUser(request)
             }
             catch (Exception) {
                 render(status: 500, text: "modification de l'utilisateur impossible")
@@ -59,18 +60,19 @@ class ApiController {
         return
     }
 
+
     @Secured(['ROLE_ADMIN'])
     def deleteUser(){
-        if (params.id == null) {
+        if (request.JSON.id == null) {
             render(status: 400, text: 'id parameter not provided')
             return
         } else {
 
             try {
-                apiService.deleteUser(params)
+                apiService.deleteUser(request)
             }
             catch (Exception) {
-                render(status: 500, text: "suppression de l'utilisateur impossible" + Exception)
+                render(status: 500, text: "suppression de l'utilisateur impossible")
                 return
             }
             render(status: 200, text: "utilisateur supprimé avec succes")
@@ -89,13 +91,17 @@ class ApiController {
                     render(status: 400, text: 'id number not provided')
                     break
                 } else {
-                    renderAsExpected(200, user, request)
+                    try{renderAsExpected(200, user, request)}
+                    catch (Exception e){
+                        render(status: 500, text: "Get user impossible l'id n'est pas present dans la base")
+
+                    }
                     break
                 }
                 break
 
             case "OPTIONS":
-                apiService.getUserRight()
+                //apiService.getUserRight()
                 render(status: 501, text: "Requete OPTION non implementé")
                 break
             default:
@@ -103,5 +109,14 @@ class ApiController {
                 break
 
         }
+    }
+
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
+    def getUsersList(){
+
+        def jsonResp = User.all as JSON
+        render(status: 200,jsonResp)
+        return
+
     }
 }
