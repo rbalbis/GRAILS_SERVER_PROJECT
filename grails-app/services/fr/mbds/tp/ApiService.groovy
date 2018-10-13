@@ -73,14 +73,8 @@ class ApiService {
 
     //TODO affichage des droits de l'utilisateur
     def getUserRight(){
-
-
-
         User currentUser = springSecurityService.getCurrentUser();
         listRole = UserRole.where { user == currentUser }
-
-
-
     }
 
     // Permet l'upload de l'image sur le serveur web

@@ -9,9 +9,10 @@ class MessageController {
 
     MessageUsersService messageUsersService = getMessageUsersService()
 
+    MessageService messageService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    List userList = ["test", "ggyi"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -34,7 +35,7 @@ class MessageController {
         }
 
         try {
-            messageUsersService.save(message)
+            messageService.save(message)
         } catch (ValidationException e) {
             respond message.errors, view:'create'
             return
@@ -42,7 +43,7 @@ class MessageController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), message.id])
+                flash.message = "Message " + message.id + " create"
                 redirect message
             }
             '*' { respond message, [status: CREATED] }
