@@ -128,6 +128,7 @@ class ApiController {
     }
 
     // Gestion des messages
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
     def message(Message message) {
         switch (request.getMethod()) {
             case "GET":
@@ -218,6 +219,7 @@ class ApiController {
     }
 
 // Gestion des resultats
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
     def resultat(Resultat resultat) {
         switch (request.getMethod()) {
             case "GET":
