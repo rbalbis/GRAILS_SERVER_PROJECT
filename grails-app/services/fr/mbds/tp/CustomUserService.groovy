@@ -60,7 +60,7 @@ class CustomUserService {
         def userQuery = User.where { id == id }
         User oldUser = userQuery.find()
         oldUser.setUsername(username)
-        if (password != null) {
+        if (password != null && password != "") {
             oldUser.setPassword(password)
         }
         oldUser.setImage(image)
