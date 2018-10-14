@@ -17,7 +17,6 @@ class ApiService {
 
 
     //creation d'un nouveau utilisateur suite requete post
-    @Secured(['ROLE_USER','ROLE_ADMIN'])
     def createUser(HttpServletRequest request) {
 
         User newUser
@@ -40,8 +39,7 @@ class ApiService {
 
     }
 
-    //TODO modification utilisateur suite requete put
-    @Secured(['ROLE_ADMIN'])
+    // modification utilisateur suite requete put
     def editUser(HttpServletRequest request) {
         def userQuery = User.where { id == request.JSON.id }
         User user = userQuery.find()
@@ -62,7 +60,6 @@ class ApiService {
     }
 
     //suppression utilisateur suite requete delete
-    @Secured(['ROLE_ADMIN'])
     def deleteUser(HttpServletRequest request) {
         def userQuery = User.where { id == request.JSON.id }
         User user = userQuery.find()
@@ -71,7 +68,7 @@ class ApiService {
 
 
 
-    //TODO affichage des droits de l'utilisateur
+    //affichage des droits de l'utilisateur (NON IMPLEMENTE)
     def getUserRight(){
         User currentUser = springSecurityService.getCurrentUser();
         listRole = UserRole.where { user == currentUser }
@@ -90,6 +87,11 @@ class ApiService {
         }
         return imageName
 
+    }
+
+    def getUsersList() {
+       def usersList = User.findAllByEnabled(true)
+        return usersList
     }
 }
 

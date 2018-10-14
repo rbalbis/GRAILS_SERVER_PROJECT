@@ -122,8 +122,16 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN','ROLE_USER'])
     def getUsersList(){
-        def jsonResp = User.all as JSON
-        render(status: 200,jsonResp)
+
+        try {
+            def resp = apiService.getUsersList() as JSON
+            render(status: 200, resp)
+        }
+        catch (Exception e){
+            System.out.println(e)
+            render(status: 500, text: "Get users impossible")
+            return
+        }
         return
     }
 
