@@ -66,8 +66,6 @@ class ApiService {
         user.setEnabled(false)
     }
 
-
-
     //affichage des droits de l'utilisateur (NON IMPLEMENTE)
     def getUserRight(){
         User currentUser = springSecurityService.getCurrentUser();

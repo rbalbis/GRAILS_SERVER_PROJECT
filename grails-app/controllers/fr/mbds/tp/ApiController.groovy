@@ -32,7 +32,9 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN'])
     def createUser(){
-        if (request.JSON.username == null || request.JSON.password == null || request.JSON.role == null) {
+
+
+        if (request.JSON.size() == 0 || request.JSON.username.length() == 0 | request.JSON.username == null || request.JSON.password == null || request.JSON.role == null) {
             render(status: 400, text: 'parameter not provided')
             return
         } else {
@@ -41,7 +43,7 @@ class ApiController {
                 apiService.createUser(request)
             }
             catch (Exception e) {
-                render(status: 500, text: "creation de l'utilisateur impossible ${e}")
+                render(status: 500, text: "creation de l'utilisateur impossible")
                 return
             }
             render(status: 201, text: "utilisateur cree avec succes")
@@ -122,7 +124,6 @@ class ApiController {
 
     @Secured(['ROLE_ADMIN','ROLE_USER'])
     def getUsersList(){
-
         try {
             def resp = apiService.getUsersList() as JSON
             render(status: 200, resp)
