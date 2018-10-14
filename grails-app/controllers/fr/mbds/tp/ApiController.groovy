@@ -58,8 +58,11 @@ class ApiController {
             return
         } else {
 
+
             try {
-                apiService.editUser(request)
+                if(request.JSON.username != null && User.findAllByUsername(request.JSON.username).size() == 0){
+                apiService.editUser(request)}
+                else{render(status: 500, text: "modification de l'utilisateur impossible identifiant deja existant")}
             }
             catch (Exception) {
                 render(status: 500, text: "modification de l'utilisateur impossible")
