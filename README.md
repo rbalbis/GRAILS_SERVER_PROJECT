@@ -12,4 +12,4 @@ La collection postman est disponible en suivant [ce lien](https://www.getpostman
 La documentation de l'api REST est disponible [ici]( https://documenter.getpostman.com/view/5486241/RWgrxxYh)
 
 
-
+Les images dans le dossier htdocs sont a mettre dans le dossier htdocs du serveur.
