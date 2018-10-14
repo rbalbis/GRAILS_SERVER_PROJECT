@@ -21,6 +21,10 @@
 
 }
 
+.username{
+    max-height: 1em;
+}
+
 .profil_pic_div{
     height: 15em;
 }

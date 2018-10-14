@@ -38,7 +38,7 @@
                                         <div class="profil_pic_div"><img class="profil_pic" src="${grailsApplication.config.getProperty('fileUrl') + user.image}"></div>
 
                                         <div class="mdl-card__title text_card">
-                                            <h2 class="mdl-card__title-text">${user.username}</h2>
+                                            <h2 class="mdl-card__title-text username">${user.username}</h2>
                                         </div>
 
                                         <div class="mdl-card__supporting-text text_card">
