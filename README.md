@@ -13,3 +13,6 @@ La documentation de l'api REST est disponible [ici]( https://documenter.getpostm
 
 
 Les images dans le dossier htdocs sont a mettre dans le dossier htdocs du serveur.
+
+Bonus réalisé : 
+- Upload des images grâce au drag&drop en ajax avant l'envoie du formulaire sur les pages de creation et d'edition d'un utilisateur.
