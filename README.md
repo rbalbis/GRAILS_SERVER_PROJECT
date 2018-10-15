@@ -16,3 +16,5 @@ Les images dans le dossier htdocs sont a mettre dans le dossier htdocs du serveu
 
 Bonus réalisé : 
 - Upload des images grâce au drag&drop en ajax avant l'envoie du formulaire sur les pages de creation et d'edition d'un utilisateur.
+- Securisation de l'api rest en fonction du type de compte (user ou admin n'ont pas acces aux mêmes fonction)
+- Securisation de l'api grâce aux de tokens
