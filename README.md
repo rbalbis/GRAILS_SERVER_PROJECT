@@ -4,9 +4,9 @@ N'ayant pas tout de suite compris que le tp se portait uniquement sur la partie 
 Le schema des principales relations se trouve dans le fichier Grails_Diagram_Relation 
 
 Les identifiants pour la connections sont :
-    - compte administrateur username : admin  password : mdp
-    - compte utilisateur1 username : username1  password : mdp
-    - compte utilisateur2 username : username2  password : password
+- compte administrateur username : admin  password : mdp
+- compte utilisateur1 username : username1  password : mdp
+- compte utilisateur2 username : username2  password : password
 
 La collection postman est disponible en suivant [ce lien](https://www.getpostman.com/collections/57d471b9b311ede4d427)
 La documentation de l'api REST est disponible [ici]( https://documenter.getpostman.com/view/5486241/RWgrxxYh)
